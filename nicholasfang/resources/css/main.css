@@ -1,0 +1,66 @@
+/*--------------------------------------------------------------------------------*/
+/* Basic Setup																							 */
+/*--------------------------------------------------------------------------------*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+a {
+	color: black;
+	letter-spacing: 2px;
+	text-decoration: none;
+	background: rgba(0,0,0,0.2);
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	transition: all 0.5s;
+	padding: 10px 0px;
+}
+
+a:hover {
+	background: rgba(0,0,0,0.3);
+}
+
+header {
+	margin: 0;
+	padding: 50px 50px 50px 50%;
+}
+
+/*--------------------------------------------------------------------------------*/
+/* Nav																									 */
+/*--------------------------------------------------------------------------------*/
+
+.nav-main {
+	border: 1px solid green;
+	/*max-width: 750px;*/
+	justify-content: flex-end;
+}
+
+.nav-main ul{
+	border: 1px solid blue;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.nav-main li{
+	border: 1px solid red;
+	text-align: center;
+	flex: 1 1 calc(33.3333% - 20px);
+}
+
+.nav-main a {
+	font-size: 24px;
+}
