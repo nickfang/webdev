@@ -1,21 +1,27 @@
 --------------------------------------------------------------------------------*/
 /* Basic Setup																							 */
 /*--------------------------------------------------------------------------------*/
-* {
+/** {
 	margin: 0;
 	padding: 0;
 }
 
 *, *:before, *:after {
 	box-sizing: inherit;
+}*/
+
+html {
+	margin: 0;
+	padding: 0;
 }
 
 body {
 	font-family: sans-serif;
+	background-color: black;
 }
 
 a {
-	color: gray;
+	color: white;
 	letter-spacing: 2px;
 	text-decoration: none;
 	display: inline-block;
@@ -33,10 +39,10 @@ a:hover {
 
 
 .background {
-	background-image: url(../img/chalkBoardBackground.png);
-	background-size: cover;
+	background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/chalkBoardBackground.png);
+	background-size: 80% auto;
 	background-position: 0 0;
-	height: 100vh;
+	/*height: 100vh;*/
 }
 
 header {
@@ -55,7 +61,8 @@ nav {
 
 .nav-main{
 	/*border: 1px solid blue;*/
-	background: rgba(0,0,0,0.2);
+	background-color: white;
+	background: rgba(0,0,0,0.8);
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -90,7 +97,32 @@ nav {
 }
 
 
+/*--------------------------------------------------------------------------------*/
+/* Footer																									 */
+/*--------------------------------------------------------------------------------*/
+
 footer {
 	border: 1px solid green;
 	margin: 1px;
+}
+
+footer ul {
+	/* top right bottom left*/
+	padding: 50px 35% 50px 35%;
+	background: rgba(0,0,0,0.2);
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+footer ul li {
+	flex: 1;
+	text-align: center;
+	justify-content: center;
+}
+
+footer p {
+	text-align: center;
+	color: white;
 }
