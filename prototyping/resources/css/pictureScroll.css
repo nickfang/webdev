@@ -1,0 +1,43 @@
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: black;
+}
+
+.picture-scroll {
+	border: 1px solid green;
+	width: 100%;
+}
+
+.bar-top {
+	background-color: aqua;
+	margin: 0 10%;
+	height: 200px;
+}
+
+.main-picture {
+	border: 1px solid red;
+	background-image: url(../img/IMG_9098-2.jpg);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	margin: 0 10%;
+	padding-bottom: 100%;
+	/*width: 100%;*/
+	height: 0;
+}
+
+
+.window {
+	display: block;   /* These two lines are needed to center the image */
+	margin: auto;		/* These two lines are needed to center the image */
+	width: 50%;
+}
+
+.bar-bottom {
+	background: aqua;
+	/*margin-top: 1045px;*/
+	height: 200px;
+}
