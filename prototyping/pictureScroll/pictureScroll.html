@@ -15,12 +15,23 @@
 			</div>
 			<div class="main-picture">
 				<!-- <img class="picture" src="resources/img/IMG_9098-2.jpg"> -->
-				<div class="window">
-				</div>
 				<div class="bar-bottom">
 				</div>
 			</div>
+			<div class="space-below">
+			</div>
+			<div></div>
 		</section>
+
 		<script src="resources/js/pictureScroll.js" ></script>
+		<script>
+			const debugBorders = false;
+			let border;
+
+			debugBorders ? border = "1px solid green" : border = "1px solid black";
+			document.documentElement.style.setProperty(`--${"debug-borders"}`, border);
+		</script>
+
 	</body>
+	<footer></footer>
 </html>
