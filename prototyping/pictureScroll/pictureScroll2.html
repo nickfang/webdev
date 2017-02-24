@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" type="text/css" href="resources/css/pictureScroll2.css">
+		<title>Picture scroll prototype</title>
+		<!-- pictureScroll is an idea I have about presenting a self portrait.  I have been rock climbing consistantly for a little over a year now and
+		my upper body has become pretty toned.  I am still however carrying a lot of weight in my belly.  I wanted the picture to be of my self
+		from the neck down to my waist.  I wanted the picture to start with an opaque bar on top with some text about "gains" and a bar on bottom
+		covering my belly.  Then as you scroll down, the background picture will scroll up until the bottom of the picture is at the top of the bottom bar.
+		The bottom bar will then say something about my big fat belly. -->
+		<!-- New Idea.  Use different position properties to get this to work.
+				size image so that it fits the window vertically.-->
+	</head>
+	<body>
+		<section class="picture-scroll">
+			<div class="bar-top">
+			</div>
+			<div class="picture-window">
+				<img class="picture" src="resources/img/IMG_9098-2.jpg">
+				<div class="bar-bottom">
+				</div>
+			</div>
+			<div class="space-below">
+			</div>
+			<div></div>
+		</section>
+
+		<script src="resources/js/pictureScroll2.js" ></script>
+		<script>
+			const debugBorders = true;
+			let border;
+
+			debugBorders ? border = "1px solid green" : border = "none";
+			document.documentElement.style.setProperty(`--${"debug-borders"}`, border);
+		</script>
+
+	</body>
+	<footer></footer>
+</html>

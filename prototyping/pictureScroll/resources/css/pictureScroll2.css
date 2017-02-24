@@ -1,0 +1,43 @@
+:root {
+	--debug-borders: none;
+	--bar-color: #888;
+}
+
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: black;
+}
+
+.picture-scroll {
+	border: var(--debug-borders);
+}
+
+.bar-top {
+	background-color: var(--bar-color);
+}
+
+.picture-window {
+	margin: 0;
+}
+
+.picture {
+	align-items: center;
+}
+
+.bar-bottom {
+	background-color: var(--bar-color);
+	position: absolute;
+	top: 426px;
+}
+
+.space-below {
+
+}
+
+footer {
+	height: 10px;
+}

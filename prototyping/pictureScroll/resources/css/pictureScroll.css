@@ -18,13 +18,15 @@ body {
 }
 
 .bar-top {
-	background-color: var(--bar-color);
-	margin: 0 10%;
+	background-color: var(--bar-color);					/* if this is removed, it breaks everything.  When it get's figured out remove the -1 in the updateBottomBar function */
+	/*margin: 0 10%;*/
+	margin: 0 20%;
 }
 
 .main-picture {
-	border: var(--debug-borders);
-	margin: 0 10%;
+	border: var(--debug-borders);							/* if this is removed, it breaks everything.  When it get's figured out remove the -1 in the updateBottomBar function */
+	/*margin: 0 10%;*/
+	margin: 0 20%;
 	background-image: url(../img/IMG_9098-2.jpg);
 	background-size: 100% auto;
 	background-repeat: no-repeat;

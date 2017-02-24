@@ -17,10 +17,13 @@ const spaceBelow = document.querySelector('.space-below');
 
 function setBarSizes() {
 	let barHeight = Math.ceil(.3 * picture.clientHeight);
+	console.log(barHeight, picture.clientHeight);
 	let barTopMargin = picture.clientHeight - barHeight;
+	console.log(barTopMargin);
 	barTop.style.height = `${barHeight}px`;
 	barBottom.style.height = `${barHeight}px`;
 	barBottom.style.marginTop = `${barTopMargin}px`;
+	// if the entire image is on the window, make the spaceBelow the rest of the window size plus the barHeight.
 	spaceBelow.style.height = `${barHeight}px`;
 }
 
@@ -30,7 +33,7 @@ function updateBottomBar() {
 	let barHeight = Math.ceil(.3 * picture.clientHeight);
 	let barTopMargin = picture.clientHeight - barHeight;
 	windowPositionBottom = window.scrollY + window.innerHeight;
-	if (windowPositionBottom > spaceBelow.offsetTop && windowPositionBottom < spaceBelow.offsetTop + barHeight) {
+	if (windowPositionBottom > spaceBelow.offsetTop && windowPositionBottom < spaceBelow.offsetTop + barHeight - 1) {  // we subtract one because for some reason without the 1px border the background image appears way lower.
 		barBottom.style.marginTop = `${barTopMargin + (windowPositionBottom - (picture.offsetTop + picture.offsetHeight))}px`
 	} else if (windowPositionBottom > (spaceBelow.offsetTop + barHeight)) {
 		barBottom.style.marginTop = `${picture.offsetHeight}px`;
