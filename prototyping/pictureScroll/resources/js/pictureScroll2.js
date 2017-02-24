@@ -1,8 +1,12 @@
+const debugBorders = false;
+let border;
+
 const barTop =  document.querySelector('.bar-top');
 const pictureWindow = document.querySelector('.picture-window');
 const picture = document.querySelector('.picture');
 const barBottom = document.querySelector('.bar-bottom');
 const spaceBelow = document.querySelector('.space-below');
+const text = document.querySelectorAll('.bar-text');
 const barPercent = 0.3;  // percent of image to cover.
 let pictureHeight;
 let barHeight;
@@ -11,32 +15,44 @@ function initSizes() {
 	pictureHeight = Math.ceil(window.innerHeight / (1 + barPercent));
 	barHeight = Math.ceil(barPercent * pictureHeight);
 
-	pictureWindow.style.height = `${pictureHeight}px`;
 	picture.style.height = `${pictureHeight}px`;
+	pictureWindow.style.height = `${pictureHeight}px`;
+	pictureWindow.style.width = `${picture.width}px`;
 
+	// set the size of the top bar
 	barTop.style.height = `${barHeight}px`;
 	barTop.style.width = `${picture.width}px`;
 
+	// set the size and position of the bottom bar
 	barBottom.style.height = `${barHeight}px`;
 	barBottom.style.width = `${picture.width}px`;
+	barBottom.style.top = `${pictureHeight - barHeight}px`;
+
+	// space for the bottom bar to scroll into.
+	spaceBelow.style.height = `${barHeight}px`;
+
+	for (var i=0; i<text.length; i++) {
+		text[i].style.lineHeight = `${barHeight}px`;
+	}
 }
 
 function updateBottomBar() {
-	// need to be able to handle if the entire picture and space below is in view.
-	// if space-below is not in view, start figure out when it comes into view and move the bottom bar according to how much of space-below is showing.
-	let barTopMargin = pictureHeight - barHeight;
+	// if the window is scrolled determind the position of the bottom Bar and update text.
+	let barTopOriginal = pictureHeight - barHeight;
 	windowPositionBottom = window.scrollY + window.innerHeight;
-	if (windowPositionBottom > spaceBelow.offsetTop) { //&& windowPositionBottom < spaceBelow.offsetTop + barHeight - 1) {
-		barBottom.style.marginTop = `${barTopMargin + (windowPositionBottom - (picture.offsetTop + picture.offsetHeight))}px`
-	} else if (windowPositionBottom > (spaceBelow.offsetTop + barHeight)) {
-		barBottom.style.marginTop = `${picture.offsetHeight}px`;
+	if (windowPositionBottom > spaceBelow.offsetTop && windowPositionBottom < spaceBelow.offsetTop + barHeight) {
+		barBottom.style.top = `${windowPositionBottom - spaceBelow.offsetTop + barTopOriginal}px`;
+	} else if (windowPositionBottom > spaceBelow.offsetTop + barHeight) {
+		barBottom.style.top = `${pictureHeight}px`;
 	}
-
 }
 
+
+debugBorders ? border = "1px solid green" : border = "none";
+document.documentElement.style.setProperty(`--${"debug-borders"}`, border);
 initSizes();
 
-// window.addEventListener('scroll', updateBottomBar);
+window.addEventListener('scroll', updateBottomBar);
 
 // make sure the bars are resized when the window is resized.
 window.onresize = initSizes;

@@ -9,7 +9,21 @@ html {
 }
 
 body {
+	margin: 0;
 	background-color: black;
+}
+
+p {
+	margin: 0;
+	text-align: center;
+	vertical-align: middle;
+	width: inherit;
+	/*word-wrap: normal;*/
+	color: white;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
 }
 
 .picture-scroll {
@@ -18,26 +32,22 @@ body {
 
 .bar-top {
 	background-color: var(--bar-color);
+	margin: 0 auto;
+	/*position: absolute;*/
+}
+
+.bar-top-text {
 }
 
 .picture-window {
-	margin: 0;
-}
-
-.picture {
-	align-items: center;
+	position: relative;
+	margin: auto;
 }
 
 .bar-bottom {
 	background-color: var(--bar-color);
 	position: absolute;
-	top: 426px;
 }
 
-.space-below {
-
-}
-
-footer {
-	height: 10px;
+.bar-bottom-text {
 }
