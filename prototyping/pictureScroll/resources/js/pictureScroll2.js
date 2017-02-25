@@ -6,7 +6,7 @@ const pictureWindow = document.querySelector('.picture-window');
 const picture = document.querySelector('.picture');
 const barBottom = document.querySelector('.bar-bottom');
 const spaceBelow = document.querySelector('.space-below');
-const text = document.querySelectorAll('.bar-text');
+const text = document.querySelector('.bar-bottom-text');
 const barPercent = 0.3;  // percent of image to cover.
 let pictureHeight;
 let barHeight;
@@ -31,9 +31,6 @@ function initSizes() {
 	// space for the bottom bar to scroll into.
 	spaceBelow.style.height = `${barHeight}px`;
 
-	for (var i=0; i<text.length; i++) {
-		text[i].style.lineHeight = `${barHeight}px`;
-	}
 }
 
 function updateBottomBar() {
@@ -42,8 +39,13 @@ function updateBottomBar() {
 	windowPositionBottom = window.scrollY + window.innerHeight;
 	if (windowPositionBottom > spaceBelow.offsetTop && windowPositionBottom < spaceBelow.offsetTop + barHeight) {
 		barBottom.style.top = `${windowPositionBottom - spaceBelow.offsetTop + barTopOriginal}px`;
+		text.style.color = `rgba(255,255,255,${(windowPositionBottom-spaceBelow.offsetTop)/barHeight})`;
 	} else if (windowPositionBottom > spaceBelow.offsetTop + barHeight) {
 		barBottom.style.top = `${pictureHeight}px`;
+		text.style.color = `rgba(255,255,255,1)`;
+	} else if (window.scrollY == 0) {
+		barBottom.style.top = `${barTopOriginal}px`;
+		text.style.color = `rgba(255,255,255,0)`;
 	}
 }
 
