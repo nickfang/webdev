@@ -1,6 +1,6 @@
 :root {
 	--debug-borders: none;
-	--bar-color: #333;
+	--bar-color: #888;
 }
 
 html {
@@ -25,7 +25,6 @@ body {
 	margin: 0 10%;
 	text-align: center;
 	font-family: impact;
-	font-size: 36px;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 }
@@ -37,6 +36,10 @@ body {
 .bar-top p{
 	margin-bottom: 4%; /*centering vertically still seems a little low, so adding a little margin on the bottom*/
 	color: rgba(255,255,255,1);
+	text-shadow:  2px  2px 0 rgba(0,0,0,1),
+					 -2px  2px 0 rgba(0,0,0,1),
+					  2px -2px 0 rgba(0,0,0,1),
+					 -2px -2px 0 rgba(0,0,0,1);
 }
 
 .picture-window {
@@ -49,8 +52,11 @@ body {
 }
 
 .bar-bottom-text {
-	/*margin: 0 20%*/
 	color: rgba(255,255,255,0);
+/*	text-shadow:  2px  2px 0 rgba(0,0,0,0.0),
+					 -2px  2px 0 rgba(0,0,0,0.0),
+					  2px -2px 0 rgba(0,0,0,0.0),
+					 -2px -2px 0 rgba(0,0,0,0.0);*/
 }
 
 /*.bar-bottom i {
