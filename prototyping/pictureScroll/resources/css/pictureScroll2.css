@@ -16,6 +16,8 @@ body {
 .bar {
 	background-color: var(--bar-color);
 	margin: auto;
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #444;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -32,6 +34,7 @@ body {
 .picture-scroll {
 	border: var(--debug-borders);
 }
+
 
 .bar-top p{
 	margin-bottom: 4%; /*centering vertically still seems a little low, so adding a little margin on the bottom*/
