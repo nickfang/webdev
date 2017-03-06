@@ -19,8 +19,11 @@ function initSizes() {
 
 	picture.style.height = `${pictureHeight}px`;
 	// TODO:  figure out why the bar width is sometimes 0.
-	const pictureWidth = picture.width;
-	console.log(picture.width);
+	let pictureWidth = picture.width;
+	// while (pictureWidth === 0) {
+	// 	setTimeout( () => { pictureWidth = picture.width; }, 1000);
+	// }
+	console.log(pictureWidth);
 	// center the image on the page
 	pictureWindow.style.width = `${pictureWidth}px`;
 
