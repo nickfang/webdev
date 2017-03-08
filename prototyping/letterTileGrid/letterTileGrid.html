@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--
+	This webpage is for testing out a possible interface for a word based game.
+	Use arrow keys to navigate around the board.
+	Orientation will be either horizontal or vertical.
+	The current square that is selected will have a dark border.
+	Depending on the orientation, all the tiles in the row or column will have a different colored background
+	There will be a letter bank which contains the only letters that can be placed on the board.
+	If you type a letter that is not in the word bank, nothing happens.
+	If you type a letter that is in the word bank, the letter will appear in the current tile and the selected tile will move to the right if the orientation is horizontal and down if the orientation is vertical.  The letter will then be removed from the word bank.
+
+	Validate the board - Verify all the words are connected.  Verify all the words are valid words.
+
+	All this has to be done with little to no lag
+
+	optional:
+	use spacebar to shift everything to the left if the orientation is horizontal and up if the orientation is vertical
+	button to shuffle the word bank
+	-->
+	<title>Letter Tile Grid Interface</title>
+	<link rel="stylesheet" type="text/css" href="resources/css/letterTileGrid.css"></link>
+
+</head>
+<body>
+
+	<h1>Word Game</h1>
+
+	<div id="board">
+
+	</div>
+
+	<script type="text/javascript" src="resources/js/letterTileGrid.js"></script>
+</body>
+</html>
