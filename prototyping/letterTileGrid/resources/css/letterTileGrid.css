@@ -1,24 +1,39 @@
+body {
+	margin: 0;
+}
+
 h1	{
 	margin: 20px auto;
 	text-align: center;
 }
 
 #board {
-	display: flex;
+	margin: 0 10%;
 }
 
 .row {
 	display: flex;
-}
-
-.col {
 	flex-direction: row;
 	align-items: center;
-	align-content: stretch;
+	justify-content: center;
 }
 
 .tile {
+	flex: 1 0 auto;
+	margin: 0;
+	/*text-align: center;*/
 	border: 1px solid black;
-	background: red;
-
+	background: darkgreen;
 }
+
+.cursor {
+	background: yellow;
+}
+
+.highlight {
+	background: greenyellow;
+}
+
+/*.row-0 .col-1 {
+	background: yellow;
+}*/
