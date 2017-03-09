@@ -4,7 +4,8 @@ const board = document.querySelector("#board");
 
 let xPos = 3;
 let yPos = 4;
-let horizDirection = true;
+
+let horizHighlight = true;
 
 function createBoard(numTilesPerSide) {
 	const iDiv = document.createElement("div");
@@ -30,8 +31,6 @@ function createBoard(numTilesPerSide) {
 	}
 }
 
-
-
 function moveCursor(e){
 	// up:    38
 	// down:  40
@@ -42,7 +41,8 @@ function moveCursor(e){
 		cursor.classList.remove("cursor");
 		switch(e.keyCode) {
 			case 32: //	spacebar
-				horizDirection = !horizDirection;
+				horizHighlight = !horizHighlight;
+				removeHighlight();
 				break;
 			case 37:	// left button
 				--xPos < 0 ? (xPos = boardSize-1) : "";
@@ -72,22 +72,26 @@ function drawCursor() {
 	if (cursor.classList.contains("highlight")) {
 		cursor.classList.remove("highlight");
 	}
-	// if (horizDirection) {
-	// 	highlight = document.querySelectorAll(`.row-${yPos} .tile`);
-	// 	drawHighlight(highlight);
-	// } else {
-	// 	highlight = document.querySelectorAll(`.col-${xPos}`);
-	// 	drawHighlight(highlight);
-	// }
+	if (horizHighlight) {
+		highlight = document.querySelectorAll(`.row-${yPos} .tile`);
+	} else {
+		highlight = document.querySelectorAll(`.col-${xPos}`);
+	}
+		updateHighlight(highlight, true);
 }
 
-// input: highlight - array of tile level divs.
-function drawHighlight(highlight) {
+// input: highlight - array of tile level divs that will be highlighted
+function drawHighlight(highlight, draw) {
 	for (let i = 0; i < highlight.length; i++) {
 		if (!highlight[i].classList.contains("cursor")) {
 			highlight[i].classList.add("highlight");
 		}
 	}
+}
+
+function removeHighlights() {
+	const highlights = document.querySelectorAll(".highlight");
+
 }
 
 function preventKeyScrolling(e) {
