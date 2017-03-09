@@ -1,3 +1,4 @@
+const boardSize = 10;
 const board = document.querySelector("#board");
 
 
@@ -36,40 +37,48 @@ function moveCursor(e){
 	// down:  40
 	// left:  37
 	// right: 39
-	if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+	if (e.keyCode === 32 || e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+		const cursor = document.querySelector(`.row-${yPos} .col-${xPos}`);
+		cursor.classList.remove("cursor");
 		switch(e.keyCode) {
-			case 37:
-				// left button
-
+			case 32: //	spacebar
+				horizDirection = !horizDirection;
 				break;
-			case 38:
-				// up button
+			case 37:	// left button
+				--xPos < 0 ? (xPos = boardSize-1) : "";
+				console.log(xPos);
 				break;
-			case 39:
-				// right button
+			case 38:	// up button
+				--yPos < 0 ? (yPos = boardSize-1) : "";
 				break;
-			case 40:
-				// down button
+			case 39:	// right button
+				++xPos > boardSize-1 ? (xPos = 0) : "";
+				break;
+			case 40:	// down button
+				++yPos > boardSize-1 ? (yPos = 0) : "";
+				break;
+			default:
+				break;
 		}
 		drawCursor();
 	}
 }
 
 function drawCursor() {
-	const cursor = document.querySelector(`.row-${xPos} .col-${yPos}`);
+	const cursor = document.querySelector(`.row-${yPos} .col-${xPos}`);
 	let highlight;
 
 	cursor.classList.toggle("cursor");
 	if (cursor.classList.contains("highlight")) {
 		cursor.classList.remove("highlight");
 	}
-	if (horizDirection) {
-		highlight = document.querySelectorAll(`.row-${xPos} .tile`);
-		drawHighlight(highlight);
-	} else {
-		highlight = document.querySelectorAll(`.col-${yPos}`);
-		drawHighlight(highlight);
-	}
+	// if (horizDirection) {
+	// 	highlight = document.querySelectorAll(`.row-${yPos} .tile`);
+	// 	drawHighlight(highlight);
+	// } else {
+	// 	highlight = document.querySelectorAll(`.col-${xPos}`);
+	// 	drawHighlight(highlight);
+	// }
 }
 
 // input: highlight - array of tile level divs.
@@ -94,4 +103,4 @@ function preventKeyScrolling(e) {
 window.addEventListener('keyup', moveCursor);
 window.addEventListener('keydown', preventKeyScrolling);
 
-createBoard(10);
+createBoard(boardSize);
