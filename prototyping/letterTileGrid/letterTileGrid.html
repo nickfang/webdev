@@ -3,13 +3,16 @@
 <head>
 	<!--
 	This webpage is for testing out a possible interface for a word based game.
-	Use arrow keys to navigate around the board.
-	Orientation will be either horizontal or vertical.
-	The current square that is selected will have a dark border.
-	Depending on the orientation, all the tiles in the row or column will have a different colored background
+	-Use arrow keys to navigate around the board.
+	-Orientation will be either horizontal or vertical.
+	-The current square that is selected will have a lighter background.
+	-Depending on the orientation, all the tiles in the row or column will have a different colored background
 	There will be a letter bank which contains the only letters that can be placed on the board.
 	If you type a letter that is not in the word bank, nothing happens.
 	If you type a letter that is in the word bank, the letter will appear in the current tile and the selected tile will move to the right if the orientation is horizontal and down if the orientation is vertical.  The letter will then be removed from the word bank.
+	Figure out how to scale the font to match the size of the board
+	Expand the board horizontall or vertically as needed.  Dows not have to expand evenly.
+	Create a submit button that puts all the words in an array so they can be checked.
 
 	Validate the board - Verify all the words are connected.  Verify all the words are valid words.
 
@@ -24,8 +27,11 @@
 
 </head>
 <body>
-
 	<h1>Word Game</h1>
+
+	<div id="letter-bank">
+
+	</div>
 
 	<div id="board">
 

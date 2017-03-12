@@ -5,7 +5,6 @@ let xPos = 0;
 let yPos = 0;
 let horizHighlight = true;
 
-
 function createBoard(numTilesPerSide) {
 	const iDiv = document.createElement("div");
 	for (let i = 0; i < numTilesPerSide; i++) {
@@ -22,7 +21,7 @@ function createBoard(numTilesPerSide) {
 
 	// have to assign tiles here since it doesn't exist before now.
 	const tiles = document.querySelectorAll(".tile");
-	const tileSideLength = Math.floor((100 - 25 /* board margin is 10% on each side */) / numTilesPerSide);
+	const tileSideLength = Math.floor((100 - 20 /* board margin is 10% on each side */) / numTilesPerSide);
 	// TODO: make this into a css variable, so it's not a style in html.
 	tiles.forEach( (tile) => {
 		tile.style.width = `${tileSideLength}vw`
@@ -35,6 +34,7 @@ function createBoard(numTilesPerSide) {
 
 
 function keyHandler(e){
+	// Arrow Keys handler
 	// up:    38
 	// down:  40
 	// left:  37
@@ -54,7 +54,7 @@ function keyHandler(e){
 				if (e.keyCode === 37) {
 					--xPos < 0 ? (xPos = boardSize-1) : "";
 				} else {
-					++xPos > boardSize-1 ? (xPos = 0) : "";
+					++xPos > boardSize - 1 ? (xPos = 0) : "";
 				}
 				if (!horizHighlight) {
 					removeHighlights();
@@ -69,7 +69,7 @@ function keyHandler(e){
 				if (e.keyCode === 38) {
 					--yPos < 0 ? (yPos = boardSize-1) : "";
 				} else {
-					++yPos > boardSize-1 ? (yPos = 0) : "";
+					++yPos > boardSize - 1 ? (yPos = 0) : "";
 				}
 				if (horizHighlight) {
 					removeHighlights();
@@ -87,6 +87,7 @@ function keyHandler(e){
 		cursor.classList.add("cursor");
 	}
 
+	// Spacebar handler
 	// spacebar: 32
 	if (e.keyCode === 32) {
 		let highlights;
@@ -95,7 +96,57 @@ function keyHandler(e){
 		horizHighlight ? highlights = getHorizHighlights() : highlights = getVertHighlights();
 		drawHighlights(highlights);
 	}
+
+	// Letter handler
+	// [a..z]: [65..90]
+	if (e.keyCode >= 65 && e.keyCode <= 90) {
+		const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+		let cursor = getCurrentCursorElement();
+		cursor.innerHTML = letters[e.keyCode - 65];
+		cursor.classList.remove("cursor");
+		cursor.classList.add("highlight");
+		if (horizHighlight) {
+			++xPos > boardSize - 1 ? (xPos = 0) : "";
+		} else {
+			++yPos > boardSize - 1 ? (yPos = 0) : "";
+		}
+		cursor = getCurrentCursorElement();
+		cursor.classList.add("cursor");
+		cursor.classList.remove("highlight");
+	}
+
+	//Backspace handler
+	//backspacd: 8
+	if (e.keyCode === 8) {
+		let cursor = getCurrentCursorElement();
+		cursor.innerHTML = "";
+		cursor.classList.remove("cursor");
+		cursor.classList.add("highlight");
+		if (horizHighlight) {
+			--xPos < 0 ? (xPos = boardSize-1) : "";
+		} else {
+			--yPos < 0 ? (yPos = boardSize-1) : "";
+		}
+		cursor = getCurrentCursorElement();
+		cursor.classList.add("cursor");
+		cursor.classList.remove("highlight");
+	}
+
+	// TODO: not sure if I want this.
+	//Delete handler
+	//delete: 46
 }
+
+function preventKeyScrolling(e) {
+	switch(e.keyCode) {
+		case 37: case 38: case 39: case 40: 	// catch arrow keys
+		case 32: e.preventDefault(); break;		// and catch spacebar
+		default: break;								// allow everything else.
+	}
+}
+
+// TODO: Put the functions below into an object along with xPos and yPos and horizHighlight
+// 	This will mean I need to pass around this object or make it a global like the variables already are.
 
 // input: none.  This function uses the globals xPos and yPos
 // return: div element that the current cursor is on.
@@ -142,14 +193,6 @@ function removeHighlights() {
 	highlights.forEach( (item) => {
 		item.classList.remove("highlight");
 	});
-}
-
-function preventKeyScrolling(e) {
-	switch(e.keyCode) {
-		case 37: case 38: case 39: case 40: 	// catch arrow keys
-		case 32: e.preventDefault(); break;		// and catch spacebar
-		default: break;								// allow everything else.
-	}
 }
 
 window.addEventListener('keyup', keyHandler);

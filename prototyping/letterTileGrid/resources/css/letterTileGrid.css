@@ -21,17 +21,20 @@ h1	{
 .tile {
 	flex: 1 0 auto;
 	margin: 0;
-	/*text-align: center;*/
-	border: 1px solid black;
-	background: darkgreen;
+	border: 1px dashed lightgrey;
+	/*background: darkseagreen;*/
+	/*display: inline-block;*/
+	font-size: 3em;
+	text-align: center;
+	/*vertical-align: center;*/
 }
 
 .cursor {
-	background: yellow;
+	background: khaki;
 }
 
 .highlight {
-	background: greenyellow;
+	background: lightyellow;
 }
 
 /*.row-0 .col-1 {
