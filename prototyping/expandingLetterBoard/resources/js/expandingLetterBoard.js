@@ -111,16 +111,17 @@ const gameObj = {
 	// input: none
 	// return: none
 	// This will size each tile so that it is square and will fit on the screen
+	// TODO: when adding
 	sizeTiles: function() {
-		// TODO: scale the font as well
 		const tiles = document.querySelectorAll(".tile");
 		const tileSideLength = Math.floor((100 - 20 /* board margin is 10% on each side */) / Math.max(gameObj.xLength, gameObj.yLength));
-		// // TODO: make this into a css variable, so it's not a style in html.
-		tiles.forEach( (tile) => {
-			tile.style.width = `${tileSideLength}vw`
-			tile.style.height = `${tileSideLength}vw`
-		});
-
+		var whichWidth;
+		// if xLength is greater, then there are more x boxes so use vw since it will be smaller.
+		gameObj.xLength >= gameObj.yLength ? whichWidth = "vw" : whichWidth = "vh";
+		document.documentElement.style.setProperty(`--${"tile-width"}`, `${tileSideLength}vmax`);
+		document.documentElement.style.setProperty(`--${"tile-height"}`, `${tileSideLength}vmax`);
+		document.documentElement.style.setProperty(`--${"tile-line-height"}`, `${tileSideLength}vmax`);
+		document.documentElement.style.setProperty(`--${"font-size"}`, `${tileSideLength * .8}vmax`);
 	},
 
 	// input: none

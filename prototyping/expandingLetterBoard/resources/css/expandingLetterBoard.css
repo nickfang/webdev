@@ -1,3 +1,10 @@
+:root {
+	--tile-width: 10vmin;
+	--tile-height: 10vmin
+	--tile-line-height: 10vmin
+	--font-size: 10vmin
+}
+
 body {
 	margin: 0;
 }
@@ -18,19 +25,23 @@ h1	{
 .row {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: center;
+	/*align-items: center;*/
+	/*justify-content: center;*/
+	position: /*absolute*/;
 }
 
 .tile {
 	flex: 1 0 auto;
 	margin: 0;
 	border: 1px dashed lightgrey;
-	/*background: darkseagreen;*/
-	/*display: inline-block;*/
+	display: ;
 	font-size: 3em;
 	text-align: center;
-	/*vertical-align: center;*/
+	vertical-align: middle;
+	width: var(--tile-width);
+	height: var(--tile-height);
+	line-height: var(--tile-line-height);
+	font-size: var(--font-size);
 }
 
 .cursor {
