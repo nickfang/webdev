@@ -155,7 +155,6 @@ const gameObj = {
 		this.sizeTiles();
 	},
 
-
 	// input: none.  This function uses the globals xPos and yPos
 	// return: div element that the current cursor is on.
 	getCurrentCursorElement: function() {

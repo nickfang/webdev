@@ -18,11 +18,7 @@ function initSizes() {
 	barHeight = Math.ceil(barPercent * pictureHeight);
 
 	picture.style.height = `${pictureHeight}px`;
-	// TODO:  figure out why the bar width is sometimes 0.
 	let pictureWidth = picture.width;
-	// while (pictureWidth === 0) {
-	// 	setTimeout( () => { pictureWidth = picture.width; }, 1000);
-	// }
 	console.log(pictureWidth);
 	// center the image on the page
 	pictureWindow.style.width = `${pictureWidth}px`;
@@ -80,11 +76,11 @@ function setTextBottomShadow(opacity) {
 	textBottom.style.textShadow = `2px 2px 0 rgba(0,0,0,${opacity}), -2px 2px 0 rgba(0,0,0,${opacity}), 2px -2px 0 rgba(0,0,0,${opacity}), -2px -2px 0 rgba(0,0,0,${opacity})`
 }
 
+
 debugBorders ? border = "1px solid green" : border = "none";
 document.documentElement.style.setProperty(`--${"debug-borders"}`, border);
 
-initSizes();
-
+picture.addEventListener("load", initSizes);
 window.addEventListener('scroll', updateBottomBar);
 
 // make sure the bars are resized when the window is resized.
