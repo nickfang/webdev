@@ -21,12 +21,98 @@ const gameObj = {
 
 		this.sizeTiles();
 
-		this.getCurrentCursorElement().classList.add("cursor");
 		this.drawHighlights(this.getHorizHighlights());
+		this.finishCursorMove();
 	},
 
+	addLetter: function(letter) {
+		let cursor = this.prepCursorMove();
+		cursor.innerHTML = letter;
+		cursor.classList.add("highlight");
+		if (this.horizHighlight) {
+			++this.xPos > this.xLength - 1 ? this.increaseBoardSizeX() : "";
+		} else {
+			++this.yPos > this.yLength - 1 ? this.increaseBoardSizeY() : "";
+		}
+		this.finishCursorMove();
+	},
+
+	moveCursorLeft: function() {
+		let cursor = this.prepCursorMove();
+		this.horizHighlight ? cursor.classList.add("highlight") : "";
+		--this.xPos < 0 ? (this.xPos = this.xLength-1) : "";
+		if (!this.horizHighlight) {
+			this.removeHighlights();
+			this.drawHighlights(this.getVertHighlights());
+		}
+		this.finishCursorMove();
+	},
+
+	moveCursorUp: function() {
+		let cursor = this.prepCursorMove();
+		!this.horizHighlight ? cursor.classList.add("highlight") : "";
+		--this.yPos < 0 ? (this.yPos = this.yLength-1) : "";
+		if (this.horizHighlight) {
+			this.removeHighlights();
+			this.drawHighlights(this.getHorizHighlights());
+		}
+		this.finishCursorMove();
+	},
+
+	moveCursorRight: function() {
+		let cursor = this.prepCursorMove();
+		this.horizHighlight ? cursor.classList.add("highlight") : "";
+		++this.xPos > this.xLength - 1 ? (this.xPos = 0) : "";
+		if (!this.horizHighlight) {
+			this.removeHighlights();
+			this.drawHighlights(this.getVertHighlights());
+		}
+		this.finishCursorMove();
+	},
+
+	moveCursorDown: function() {
+		let cursor = this.prepCursorMove();
+		!this.horizHighlight ? cursor.classList.add("highlight") : "";
+		++this.yPos > this.yLength - 1 ? (this.yPos = 0) : "";
+		if (this.horizHighlight) {
+			this.removeHighlights();
+			this.drawHighlights(this.getHorizHighlights());
+		}
+		this.finishCursorMove();
+	},
+
+	rotateHighlights: function() {
+		let highlights;
+		this.horizHighlight = !this.horizHighlight;
+		this.removeHighlights();
+		this.horizHighlight ? highlights = this.getHorizHighlights() : highlights = this.getVertHighlights();
+		this.drawHighlights(highlights);
+	},
+
+	backspace: function() {
+		let cursor = this.prepCursorMove();
+		cursor.classList.add("highlight");
+		cursor.innerHTML = "";
+		if (this.horizHighlight) {
+			--this.xPos < 0 ? (this.xPos = this.xLength-1) : "";
+		} else {
+			--this.yPos < 0 ? (this.yPos = this.yLength-1) : "";
+		}
+		this.finishCursorMove();
+	},
+
+	// remove outer rows and columns that are empty.
+	shrinkBoard: function() {
+		console.log("TODO: finish shrinkBoard()")
+	},
+
+	// internal functions
+
+	// input: none
+	// return: none
+	// This will size each tile so that it is square and will fit on the screen
 	sizeTiles: function() {
-		// scale the font as well
+		// TODO: scale the font as well
 		const tiles = document.querySelectorAll(".tile");
 		const tileSideLength = Math.floor((100 - 20 /* board margin is 10% on each side */) / Math.max(gameObj.xLength, gameObj.yLength));
 		// // TODO: make this into a css variable, so it's not a style in html.
@@ -37,6 +123,9 @@ const gameObj = {
 
 	},
 
+	// input: none
+	// return: none
+	// If a letter is pressed at the right side of the board, this is used to add a new column on the right side.
 	increaseBoardSizeX: function() {
 		const rows = document.querySelectorAll(".row");
 		rows.forEach( (row, i) => {
@@ -50,6 +139,9 @@ const gameObj = {
 		this.sizeTiles();
 	},
 
+	// input: none
+	// return: none
+	// If a letter is pressed at the bottom of the board, this is used to add a new row at the bottom.
 	increaseBoardSizeY: function() {
 		const newRow = document.createElement("div");
 		const iDiv = document.createElement("div");
@@ -63,21 +155,6 @@ const gameObj = {
 		this.sizeTiles();
 	},
 
-	addLetter: function(letter) {
-		let cursor = this.getCurrentCursorElement();
-		cursor.innerHTML = letter;
-		cursor.classList.remove("cursor");
-		cursor.classList.add("highlight");
-		if (this.horizHighlight) {
-			++this.xPos > this.xLength - 1 ? this.increaseBoardSizeX() : "";
-		} else {
-			++this.yPos > this.yLength - 1 ? this.increaseBoardSizeY() : "";
-		}
-		cursor = this.getCurrentCursorElement();
-		cursor.classList.add("cursor");
-		cursor.classList.remove("highlight");
-
-	},
 
 	// input: none.  This function uses the globals xPos and yPos
 	// return: div element that the current cursor is on.
@@ -85,42 +162,22 @@ const gameObj = {
 		return document.querySelector(`.row-${this.yPos} .col-${this.xPos}`);
 	},
 
-	// input: none.  This function uses the globals xPos and yPos
-	// return: none.  This function adds the class cursor to the element that represents xPos and yPos
-	drawCursor: function() {
-		const cursor = document.querySelector(`.row-${this.yPos} .col-${this.xPos}`);
-		cursor.classList.add("cursor");
-	},
-
-	moveCursorLeft: function() {
-		--this.xPos < 0 ? (this.xPos = this.xLength-1) : "";
-	},
-
-	moveCursorUp: function() {
-		--this.yPos < 0 ? (this.yPos = this.yLength-1) : "";
-	},
-
-	moveCursorRight: function() {
-		++this.xPos > this.xLength - 1 ? (this.xPos = 0) : "";
-	},
-
-	moveCursorDown: function() {
-		++this.yPos > this.yLength - 1 ? (this.yPos = 0) : "";
-	},
-
-	backspace: function() {
+	// input: none
+	// reutrn: cursor - this is returned so that the calling function can update the highlight or innerHTML accordingly.
+	prepCursorMove: function() {
 		let cursor = this.getCurrentCursorElement();
-		cursor.innerHTML = "";
 		cursor.classList.remove("cursor");
-		cursor.classList.add("highlight");
-		if (this.horizHighlight) {
-			--this.xPos < 0 ? (this.xPos = this.xLength-1) : "";
-		} else {
-			--this.yPos < 0 ? (this.yPos = this.yLength-1) : "";
-		}
+		return cursor;
+	},
+
+	//input: none
+	//return: none
+	//This function is run after the xPos and yPos have been updated from a cursor move.
+	//It also assumes that the highlights have been taken care of by the calling function.
+	finishCursorMove: function() {
 		cursor = this.getCurrentCursorElement();
-		cursor.classList.add("cursor");
 		cursor.classList.remove("highlight");
+		cursor.classList.add("cursor");
 	},
 
 	// input: highlights - array of tile level divs that will be highlighted
@@ -134,14 +191,6 @@ const gameObj = {
 				item.classList.add("highlight");
 			}
 		});
-	},
-
-	rotateHighlights: function() {
-		let highlights;
-		this.horizHighlight = !this.horizHighlight;
-		this.removeHighlights();
-		this.horizHighlight ? highlights = this.getHorizHighlights() : highlights = this.getVertHighlights();
-		this.drawHighlights(highlights);
 	},
 
 	// input: none.  This function uses the globals xPos and yPos
@@ -176,51 +225,23 @@ function keyHandler(e){
 	// left:  37
 	// right: 39
 	if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
-		let cursor = gameObj.getCurrentCursorElement();
-		cursor.classList.remove("cursor");
-		// if we're moving in the same direction as the highlight, we only need to update 2 divs.
-		// if we're moving in the perpendicular direction, we need to erase the previous line and
-		// 	create a new line of highlights.
 		switch(e.keyCode) {
 			case 37:	// left button
+				gameObj.moveCursorLeft();
+				break;
 			case 39:	// right button
-				if (gameObj.horizHighlight) {
-					cursor.classList.add("highlight");
-				}
-				if (e.keyCode === 37) {
-					gameObj.moveCursorLeft();
-				} else {
-					gameObj.moveCursorRight();
-				}
-				if (!gameObj.horizHighlight) {
-					gameObj.removeHighlights();
-					gameObj.drawHighlights(gameObj.getVertHighlights());
-				}
+				gameObj.moveCursorRight();
 				break;
 			case 38:	// up button
+				gameObj.moveCursorUp()
+				break;
 			case 40:	// down button
-				if (!gameObj.horizHighlight) {
-					cursor.classList.add("highlight");
-				}
-				if (e.keyCode === 38) {
-					gameObj.moveCursorUp()
-				} else {
-					gameObj.moveCursorDown();
-				}
-				if (gameObj.horizHighlight) {
-					gameObj.removeHighlights();
-					gameObj.drawHighlights(gameObj.getHorizHighlights());
-				}
+				gameObj.moveCursorDown();
 				break;
 			default:
 				console.alert("ALERT!! Got into arrow handler with non arrow key!");
 				break;
 		}
-		// assuming that the cursor was moved.
-		// if this is not the case, we should get an error from the previous switch statement.
-		cursor = gameObj.getCurrentCursorElement();
-		cursor.classList.remove("highlight");
-		cursor.classList.add("cursor");
 	}
 
 	// Spacebar handler
