@@ -1,0 +1,46 @@
+body {
+	margin: 0;
+}
+
+h1	{
+	margin: 20px auto;
+	text-align: center;
+}
+
+#letter-bank {
+	margin: 0 10%;
+}
+
+#board {
+	margin: 0 10%;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.tile {
+	flex: 1 0 auto;
+	margin: 0;
+	border: 1px dashed lightgrey;
+	/*background: darkseagreen;*/
+	/*display: inline-block;*/
+	font-size: 3em;
+	text-align: center;
+	/*vertical-align: center;*/
+}
+
+.cursor {
+	background: khaki;
+}
+
+.highlight {
+	background: lightyellow;
+}
+
+/*.row-0 .col-1 {
+	background: yellow;
+}*/
