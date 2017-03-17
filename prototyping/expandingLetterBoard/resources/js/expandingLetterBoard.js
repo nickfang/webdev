@@ -19,8 +19,7 @@ const gameObj = {
 			this.board.appendChild(row.cloneNode(true));
 		}
 
-		this.sizeTiles();
-
+		this.sizeBoardElements();
 		this.drawHighlights(this.getHorizHighlights());
 		this.finishCursorMove();
 	},
@@ -111,17 +110,17 @@ const gameObj = {
 	// input: none
 	// return: none
 	// This will size each tile so that it is square and will fit on the screen
-	// TODO: when adding
-	sizeTiles: function() {
+	sizeBoardElements: function() {
 		const tiles = document.querySelectorAll(".tile");
-		const tileSideLength = Math.floor((100 - 20 /* board margin is 10% on each side */) / Math.max(gameObj.xLength, gameObj.yLength));
-		var whichWidth;
-		// if xLength is greater, then there are more x boxes so use vw since it will be smaller.
-		gameObj.xLength >= gameObj.yLength ? whichWidth = "vw" : whichWidth = "vh";
+		// the margin of the board is 10% on each side, so we subtract 20 from 100.
+		// we subtract an additional 4% to account for the border on each tile.  4% gives enough buffer for 25 letters without compressing the width of each tile.
+		// then we divide by whichever side has more tiles.
+		var tileSideLength = (100 - 24) / Math.max(gameObj.xLength, gameObj.yLength);
+		tileSideLength > 16 ? tileSideLength = 16 : "";
 		document.documentElement.style.setProperty(`--${"tile-width"}`, `${tileSideLength}vmax`);
 		document.documentElement.style.setProperty(`--${"tile-height"}`, `${tileSideLength}vmax`);
 		document.documentElement.style.setProperty(`--${"tile-line-height"}`, `${tileSideLength}vmax`);
-		document.documentElement.style.setProperty(`--${"font-size"}`, `${tileSideLength * .8}vmax`);
+		document.documentElement.style.setProperty(`--${"font-size"}`, `${tileSideLength * .6}vmax`);
 	},
 
 	// input: none
@@ -137,7 +136,7 @@ const gameObj = {
 			}
 		});
 		this.xLength++;
-		this.sizeTiles();
+		this.sizeBoardElements();
 	},
 
 	// input: none
@@ -153,7 +152,7 @@ const gameObj = {
 		newRow.classList = `row-${this.yLength} row`;
 		gameObj.board.appendChild(newRow);
 		this.yLength++;
-		this.sizeTiles();
+		this.sizeBoardElements();
 	},
 
 	// input: none.  This function uses the globals xPos and yPos
@@ -215,15 +214,38 @@ const gameObj = {
 	}
 }
 
+function getLetters() {
+	const allLetters = ['a','a','a','a','a','a','a','a','a',
+							  'b','b','c','c','d','d','d','d',
+							  'e','e','e','e','e','e','e','e','e','e','e','e',
+							  'f','f','g','g','g','h','h',
+							  'i','i','i','i','i','i','i','i','i','j','k',
+							  'l','l','l','l','m','m','n','n','n','n','n','n',
+							  'o','o','o','o','o','o','o','o','p','p','q',
+							  'r','r','r','r','r','r','s','s','s','s',
+							  't','t','t','t','t','t','u','u','u','u',
+							  'v','v','w','w','x','y','y','z',' ',' ']
+
+	var letterBank = ["a", "s", "d", "f", "g"];
+	letters = document.querySelector("#letters");
+	letters.innerHTML = letterBank;
+}
+
+function checkLetter(letter) {
+	let index = letterBank.indexOf(letter);
+	if (index > -1) {
+		letterBank.splice(index, 1);
+		letters.innerHTML = letterBank;
+		return true;
+	}
+	return false;
+}
+
 console.log(gameObj);
 
 
 function keyHandler(e){
 	// Arrow Keys handler
-	// up:    38
-	// down:  40
-	// left:  37
-	// right: 39
 	if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
 		switch(e.keyCode) {
 			case 37:	// left button
@@ -235,7 +257,7 @@ function keyHandler(e){
 			case 38:	// up button
 				gameObj.moveCursorUp()
 				break;
-			case 40:	// down button
+			case 40:	// down butt
 				gameObj.moveCursorDown();
 				break;
 			default:
@@ -254,7 +276,18 @@ function keyHandler(e){
 	// [a..z]: [65..90]
 	if (e.keyCode >= 65 && e.keyCode <= 90) {
 		const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-		gameObj.addLetter(letters[e.keyCode-65]);
+		const letter = letters[e.keyCode-65];
+		const cursor = gameObj.getCurrentCursorElement();
+
+		if (checkLetter(letter)) {
+			gameObj.addLetter(letter);
+		} else if (cursor.innerHTML === letter) {
+			if (gameObj.horizHighlight) {
+				gameObj.moveCursorRight();
+			} else {
+				gameObj.moveCursorDown();
+			}
+		}
 	}
 
 	//Backspace handler
@@ -284,6 +317,7 @@ window.addEventListener('keyup', keyHandler);
 window.addEventListener('keydown', preventKeyScrolling);
 
 gameObj.createBoard();
+getLetters();
 
 // TODO: convert alerts into console logs before release
 // TODO: make sure the board is completely visable

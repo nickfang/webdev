@@ -1,8 +1,8 @@
 :root {
-	--tile-width: 10vmin;
-	--tile-height: 10vmin
-	--tile-line-height: 10vmin
-	--font-size: 10vmin
+	--tile-width: 10vmax;
+	--tile-height: 10vmax;
+	--tile-line-height: 10vmax;
+	--font-size: 8vmax;
 }
 
 body {
@@ -16,29 +16,29 @@ h1	{
 
 #letter-bank {
 	margin: 0 10%;
+	margin-top: 50px;
+	background: lightyellow;
 }
 
 #board {
-	margin: 0 10%;
+	margin: 100px 10%;
+	/*border: 1px solid lightgrey;*/
 }
 
 .row {
 	display: flex;
 	flex-direction: row;
-	/*align-items: center;*/
-	/*justify-content: center;*/
-	position: /*absolute*/;
+	margin: 0 auto;
+	justify-content: center;
 }
 
 .tile {
-	flex: 1 0 auto;
+	flex: 1 1 auto;
 	margin: 0;
 	border: 1px dashed lightgrey;
-	display: ;
-	font-size: 3em;
 	text-align: center;
 	vertical-align: middle;
-	width: var(--tile-width);
+	max-width: var(--tile-width);
 	height: var(--tile-height);
 	line-height: var(--tile-line-height);
 	font-size: var(--font-size);
