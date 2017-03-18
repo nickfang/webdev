@@ -1,8 +1,8 @@
 const gameObj = {
 	board: document.querySelector("#board"),
 
-	xPos: 0,
-	yPos: 0,
+	xPos: 1,
+	yPos: 1,
 	xLength: 3,
 	yLength: 3,
 	horizHighlight: true,
@@ -212,37 +212,66 @@ const gameObj = {
 			item.classList.remove("highlight");
 		});
 	}
-}
+};
 
-function getLetters() {
-	const allLetters = ['a','a','a','a','a','a','a','a','a',
-							  'b','b','c','c','d','d','d','d',
-							  'e','e','e','e','e','e','e','e','e','e','e','e',
-							  'f','f','g','g','g','h','h',
-							  'i','i','i','i','i','i','i','i','i','j','k',
-							  'l','l','l','l','m','m','n','n','n','n','n','n',
-							  'o','o','o','o','o','o','o','o','p','p','q',
-							  'r','r','r','r','r','r','s','s','s','s',
-							  't','t','t','t','t','t','u','u','u','u',
-							  'v','v','w','w','x','y','y','z',' ',' ']
+//
+// Simulate what the server will provide.
+// - letters
+// - notification when someone has filled out their board and adds more words to your word bank
+// - notification when the game is over
+// - somewhere to recieve a notification that you have filled out your board.
+// - check a filled out board (not sure if I should do this locally)
+//
 
-	var letterBank = ["a", "s", "d", "f", "g"];
-	letters = document.querySelector("#letters");
-	letters.innerHTML = letterBank;
-}
-
-function checkLetter(letter) {
-	let index = letterBank.indexOf(letter);
-	if (index > -1) {
-		letterBank.splice(index, 1);
-		letters.innerHTML = letterBank;
-		return true;
+const simServ = {
+	// {	"a":6,  "b":1, "c":2, "d":4, "e":13, "f":1, "g":5, "h":3, "i":9,
+	// 	"j":1,  "k":1, "l":4, "m":1, "n":7,  "o":6, "p":2, "q":1, "r":7,
+	// 	"s":10, "t":6, "u":3, "v":1, "w":1,  "x":1, "y":1, "z":1, "*":2  }
+	numPlayers: 4,
+	numLetters: 100,
+	alphabet: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "*"],
+	letters: ["a", "a", "a", "a", "a", "a", "b", "c", "c", "d", "d", "d", "d", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e",
+				 "e", "f", "g", "g", "g", "g", "g", "h", "h", "h", "i", "i", "i", "i", "i", "i", "i", "i", "i", "j", "k", "l", "l", "l", "l",
+				 "m", "n", "n", "n", "n", "n", "n", "n", "o", "o", "o", "o", "o", "o", "p", "p", "q", "r", "r", "r", "r", "r", "r", "r", "s",
+				 "s", "s", "s", "s", "s", "s", "s", "s", "s", "t", "t", "t", "t", "t", "t", "u", "u", "u", "v", "w", "x", "y", "z", "*", "*"],
+	getLetters: function() {
+		let returnLetters = [];
+		let numLetters = this.getNumLetters();
+		this.shuffleLetters();
+		for (let i = 0; i < numLetters; i++) {
+			returnLetters.push(this.letters.pop());
+		}
+		return returnLetters;
+	},
+	shuffleLetters: function() {
+		for (let numShuffles = 0; numShuffles < 3; numShuffles++) {
+			for (let x = 0; x < this.letters.length; x ++) {
+				let y = Math.random() * this.numLetters;
+				// splicing out element y from the array, adding element x in it's place and taking the first element in the returned array containing element y to assign to x.
+				this.letters[x] = this.letters.splice(y, 1, this.letters[x])[0];
+			}
+		}
+	},
+	getNumLetters: function() {
+		// make sure we don't try to return more letters than there are.
+		return Math.floor(this.numLetters / this.numPlayers);
 	}
-	return false;
-}
+};
 
-console.log(gameObj);
+//
+// Local
+// - Not sure if I should keep the letters in gameObj.  I think this will become more clear when I have it more fleshed out.
+//
 
+var letterBank = simServ.getLetters();
+
+letters = document.querySelector("#letters");
+letters.innerHTML = letterBank;
+
+
+//
+// Event Listeners
+//
 
 function keyHandler(e){
 	// Arrow Keys handler
@@ -279,26 +308,35 @@ function keyHandler(e){
 		const letter = letters[e.keyCode-65];
 		const cursor = gameObj.getCurrentCursorElement();
 
-		if (checkLetter(letter)) {
-			gameObj.addLetter(letter);
-		} else if (cursor.innerHTML === letter) {
+		// check if the letter the cursor is on is the letter typed so we don't remove a letter from the bank unnecessarily.
+		if (cursor.innerHTML === letter) {
 			if (gameObj.horizHighlight) {
 				gameObj.moveCursorRight();
 			} else {
 				gameObj.moveCursorDown();
 			}
+		} else if (checkLetter(letter)) {
+			gameObj.addLetter(letter);
 		}
 	}
 
 	//Backspace handler
 	//backspacd: 8
 	if (e.keyCode === 8) {
+		if (cursor.innerHTML !== "") {
+			letterBank.push(cursor.innerHTML);
+			letters.innerHTML = letterBank;
+		}
 		gameObj.backspace();
 	}
 
 	// TODO: not sure if I want this.
-	//Delete handler
-	//delete: 46
+	// Delete handler
+	// delete: 46
+
+	// TODO: implement checking that a board is filled out with real words.
+	// Enter handler
+	// enter: 13
 }
 
 function preventKeyScrolling(e) {
@@ -309,15 +347,22 @@ function preventKeyScrolling(e) {
 	}
 }
 
-// TODO: Put the functions below into an object along with xPos and yPos and horizHighlight
-// 	This will mean I need to pass around this object or make it a global like the variables already are.
+function checkLetter(letter) {
+	let index = letterBank.indexOf(letter);
+	if (index > -1) {
+		letterBank.splice(index, 1);
+		letters.innerHTML = letterBank;
+		return true;
+	}
+	return false;
+}
 
 
+// TODO: implement moving the cursor by clicking the mouse.
 window.addEventListener('keyup', keyHandler);
 window.addEventListener('keydown', preventKeyScrolling);
 
 gameObj.createBoard();
-getLetters();
 
 // TODO: convert alerts into console logs before release
 // TODO: make sure the board is completely visable
