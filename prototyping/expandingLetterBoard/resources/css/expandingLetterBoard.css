@@ -10,18 +10,38 @@ body {
 }
 
 h1	{
-	margin: 20px auto;
+	margin: 0 auto;
+	margin-top: 20px;
 	text-align: center;
+}
+
+h2 {
+	margin: 5px;
+	text-align: center;
+	font-size: 36px;
+}
+
+footer{
+	margin: 0 10%;
+	background: lightyellow;
+	height: 100px;
 }
 
 #letter-bank {
 	margin: 0 10%;
-	margin-top: 50px;
+	padding: 10px;
+	margin-top: 20px;
 	background: lightyellow;
+	height: 100px;
+}
+
+#letters {
+	font-size: 28px;
+	line-height: 28px;
 }
 
 #board {
-	margin: 100px 10%;
+	margin: 50px 10%;
 	/*border: 1px solid lightgrey;*/
 }
 

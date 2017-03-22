@@ -237,6 +237,7 @@ const gameObj = {
 //-------------------------------------------------------------------------------------------------------------------------
 // - letters transfer all the letters at the beginning of the game, only parse them out when signaled by server (should figure how to hide this array)
 // 	- I could shuffle the array locally before passing the next two letters, so konwing all the letters beforehand won't help them formulate a way to quickly complete their board at each turn.
+//		- If I have the server validate the board, I can send a message to the other players that a validation is pending.  This will add a lot of server calls an probably can't be implemented unless I can make money off this game somehow.  For now, I need to stay under the limit for free aws server usage
 // - notification when someone has filled out their board and adds more letters to your word bank
 // - notification when the game is over
 // - somewhere to recieve a notification that you have filled out your board.
@@ -318,13 +319,20 @@ function keyHandler(e){
 		const cursor = gameObj.getCurrentCursorElement();
 
 		// first check if there is already a letter on the tile so we can put it back in the letterBank
-		if ((cursor.innerHTML !== "") && (checkLetter(letter))) {
-			lettersForBank.push(cursor.innerHTML);
-			gameObj.addLetter(letter);
-			letterBank.innerHTML = lettersForBank;
+		if (cursor.innerHTML !== "") {
+			if  (cursor.innerHTML === letter) {
+				// if the tile already contains the letter pressed, just call addLetter with same letter
+				gameObj.addLetter(letter);
+			}else if (checkLetter(letter)) {
+				// otherwise, make sure the letter is ok and update lettersForBank display it.
+				lettersForBank.push(cursor.innerHTML);
+				displayLetters(lettersForBank);
+				gameObj.addLetter(letter);
+			}  // if there is already a letter in the tile and the letter pressed is not the same letter or is not in the letter bank, do nothing
 		} else if (checkLetter(letter)) {
+			// the tile is blank so we just need to check the pressed letter is in the letter bank and update the letter bank and set the tile with the letter
+			displayLetters(lettersForBank);
 			gameObj.addLetter(letter);
-			letterBank.innerHTML = lettersForBank;
 		}
 		// if check letter fails, do nothing.
 	}
@@ -334,7 +342,7 @@ function keyHandler(e){
 	if (e.keyCode === 8) {
 		if (cursor.innerHTML !== "") {
 			lettersForBank.push(cursor.innerHTML);
-			letterBank.innerHTML = lettersForBank;
+			displayLetters(lettersForBank);
 		}
 		gameObj.backspace();
 	}
@@ -345,7 +353,7 @@ function keyHandler(e){
 	if (e.keyCode === 46) {
 		if (cursor.innerHTML !== "") {
 			lettersForBank.push(cursor.innerHTML);
-			letterBank.innerHTML = lettersForBank;
+			displayLetters(lettersForBank);
 		}
 		gameObj.delete();
 	}
@@ -353,6 +361,9 @@ function keyHandler(e){
 	// TODO: implement checking that a board is filled out with real words.
 	// Enter handler
 	// enter: 13
+	if (e.keyCode === 13) {
+		validateBoard();
+	}
 }
 
 function preventKeyScrolling(e) {
@@ -372,8 +383,14 @@ function checkLetter(letter) {
 	return false;
 }
 
+function displayLetters(arr) {
+	letterBank.innerHTML = arr.join(" | ");
+
+}
+
 
 // TODO: implement moving the cursor by clicking the mouse.
+// TODO: figure out if I should use keypress event instead.  I think I need to since I'm using the * (56) character
 window.addEventListener('keyup', keyHandler);
 window.addEventListener('keydown', preventKeyScrolling);
 
@@ -387,7 +404,20 @@ gameObj.createBoard();
 const letterBank = document.querySelector("#letters");
 var lettersFromServer = simServ.getLetters();
 var lettersForBank = lettersFromServer.splice(0,5);
+displayLetters(lettersForBank);
 
+function validateBoard() {
+	let boardValid = true;
+	if (boardValid) {
+		if (lettersFromServer.length > 1) {
+			// Have to assign letters so we don't lose track of the letters in the bank.
+			// Maybe move the letterbank into an object.
+			lettersForBank = lettersForBank.concat(lettersFromServer.splice(0,2));
+			displayLetters(lettersForBank);
+		} else {
+			console.assert("Game Over!");
+		}
+	}
+}
 
-letterBank.innerHTML = lettersForBank;
 
