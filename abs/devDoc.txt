@@ -1,0 +1,64 @@
+------------------------------------------------------------------------------------------------------------------------
+Overview
+------------------------------------------------------------------------------------------------------------------------
+A website where people that are asians and want to be background actors can create an account and fill out their profiles.
+There's a landing page to show announcements
+There's a search page for finding qualified candidates
+There's a blog section for news, or custom content.
+There's the ability to comment on blog posts
+?Have separate users for casting and acting
+?There's a search page for finding casting
+
+
+------------------------------------------------------------------------------------------------------------------------
+Hierarchy
+------------------------------------------------------------------------------------------------------------------------
+
+app.js
+models
+	user
+	profile => contains userId
+	blogPost => contains userId
+	comment => contains userId and blogPostId
+public
+	stylesheet
+		main.css
+routes
+	index.js - login, register, logout
+	profile.js - create, update, delete
+	User.js - create, update, delete
+	search.js - post and get
+	blogPosts.js - create, update, delete, comment
+	comments.js - create, update, delete
+views
+	profiles
+		show.ejs
+		edit.ejs
+		new.ejs
+	searchs
+		index.ejs
+		view.ejs
+	blogPosts
+		new.ejs
+		show.ejs
+		edit.ejs
+	comments
+		new.ejs
+	partials
+		header.ejs
+		footer.ejs
+	landing.ejs
+	login.ejs
+	register.ejs
+
+------------------------------------------------------------------------------------------------------------------------
+Node Modules
+------------------------------------------------------------------------------------------------------------------------
+
+Express
+Passport or JSON Web Tokens?
+mongoose
+passport-local-mongoose
+passport-local
+method-override
+bodyParser
