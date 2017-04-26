@@ -16,9 +16,14 @@ Priorities (G Y R)
 ------------------------------------------------------------------------------------------------------------------------
 
 Green:
-
+	Create User
+	User can create profile
+	User can search profiles by:
+		Age
+		Gender
 Yellow:
-
+	Search by location.
+	import filmography
 Red:
 
 
@@ -28,15 +33,15 @@ Hierarchy
 
 app.js
 models
-	user
-	profile => contains userId
+	- user
+	- profile => contains userId
 	blogPost => contains userId
 	comment => contains userId and blogPostId
 public
 	stylesheet
 		main.css
 routes
-	index.js - login, register, logout
+	- index.js - login, register, logout
 	profile.js - create, update, delete
 	User.js - create, update, delete
 	search.js - post and get
@@ -79,3 +84,7 @@ bodyParser
 ------------------------------------------------------------------------------------------------------------------------
 Notes
 ------------------------------------------------------------------------------------------------------------------------
+
+Only you can see your own profile.
+
+Searches only pulls up a name, and contact information ?
