@@ -8,7 +8,10 @@ var profile				= require("./models/profile");
 
 var indexRoutes = require("./routes/index");
 
+<<<<<<< HEAD
 app.use(bodyParser.urlencoded({extended: true}));
+=======
+>>>>>>> ac42ad67103e05322f09d585bf90159cac380b16
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 

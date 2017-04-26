@@ -1,11 +1,15 @@
 var express = require("express");
 var router  = express.Router();
+<<<<<<< HEAD
 var User = require("../models/user");
+=======
+>>>>>>> ac42ad67103e05322f09d585bf90159cac380b16
 
 router.get("/", (req, res) => {
 	res.render("landing");
 });
 
+<<<<<<< HEAD
 router.get("/register", (req, res) => {
 	res.render("register");
 });
@@ -32,4 +36,6 @@ router.post("/login", (req, res) => {
 	res.redirect("/");
 });
 
+=======
+>>>>>>> ac42ad67103e05322f09d585bf90159cac380b16
 module.exports = router;
