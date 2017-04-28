@@ -7,15 +7,14 @@ var User					= require("./models/user");
 var profile				= require("./models/profile");
 
 var indexRoutes = require("./routes/index");
+var profileRoutes = require("./routes/profile");
 
-<<<<<<< HEAD
-app.use(bodyParser.urlencoded({extended: true}));
-=======
->>>>>>> ac42ad67103e05322f09d585bf90159cac380b16
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 
 app.use("/", indexRoutes);
+app.use("/profiles", profileRoutes);
 
 app.listen(port, (err) => {
 	if (err) {
