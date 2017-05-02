@@ -10,6 +10,15 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
 	// get data from form and add to database.
+	res.render("profiles/show");
+});
+
+router.get("/new", (req, res) => {
+	res.render("profiles/new");
+});
+
+router.post("/new", (req, res) => {
+	res.render("profiles/show");
 });
 
 module.exports = router;

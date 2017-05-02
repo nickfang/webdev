@@ -4,7 +4,7 @@ var profileSchema = new mongoose.Schema({
 	firstName: 		String,
 	lastName: 		String,
 	gender: 			String,
-	birthdaykey: 	String,
+	birthday: 		String,
 	city: 			String,
 	state: 			String,
 	filmography:   [
