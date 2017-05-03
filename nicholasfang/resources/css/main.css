@@ -10,75 +10,96 @@
 	box-sizing: inherit;
 }*/
 
-:root {
-	--debug-mainBorder: 1px solid green;
+:root
+{
+  --debug-mainBorder: 1px solid green;
 }
 
-html {
-	margin: 0;
-	padding: 0;
+html
+{
+  margin: 0;
+  padding: 0;
 }
 
-body {
-	font-family: sans-serif;
-	background-color: black;
+body
+{
+  font-family: sans-serif;
+
+  background-color: black;
 }
 
-a {
-	color: white;
-	letter-spacing: 2px;
-	text-decoration: none;
-	display: inline-block;
-	/*width: 100%;*/
-	text-align: center;
-	transition: all 0.4s;
-	/*padding-bottom: 2px;*/
+a
+{
+  display: inline-block;
+
+  transition: all .4s;
+  /*width: 100%;*/
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 2px;
+
+  color: white;
+  /*padding-bottom: 2px;*/
 }
 
 
 
-.background {
-	background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../img/chalkBoardBackground.png);
-	background-size: 80% auto;
-	background-position: 0 0;
-	/*height: 100vh;*/
+.background
+{
+  background-image: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url(../img/chalkBoardBackground.png);
+  background-position: 0 0;
+  background-size: 80% auto;
+  /*height: 100vh;*/
 }
 
-header {
-	border: var(--debug-mainBorder);
-	margin: 1px;
+header
+{
+  margin: 1px;
+
+  border: var(--debug-mainBorder);
 }
 
 /*--------------------------------------------------------------------------------*/
 /* Nav																									 */
 /*--------------------------------------------------------------------------------*/
 
-nav {
-	/*border: 1px solid green;*/
-	padding: 50px 50px 50px 50%;
+nav
+{
+  /*border: 1px solid green;*/
+  padding: 50px 50px 50px 50%;
 }
 
-.nav-main{
-	/*border: 1px solid blue;*/
-	background-color: white;
-	background: rgba(0,0,0,0.8);
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
+.nav-main
+{
+  display: flex;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background: rgba(0,0,0,.8);
+  /*border: 1px solid blue;*/
+  background-color: white;
+
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.nav-main li{
-	padding: 10px 0px;
-	text-align: center;
-	flex: 1;
+.nav-main li
+{
+  padding: 10px 0;
+
+  text-align: center;
+
+  flex: 1;
 }
 
-.nav-main a {
-	font-size: 24px;
-	border-bottom: 2px solid rgba(0,0,0,0);  /* keep things from moving around on hover / active*/
+.nav-main a
+{
+  font-size: 24px;
+
+  border-bottom: 2px solid rgba(0,0,0,0);  /* keep things from moving around on hover / active*/
 }
 
 /*a:hover {
@@ -86,18 +107,20 @@ nav {
 }*/
 
 .nav-main a:hover,
-.nav-main a:active {
-	border-bottom: 2px solid green;
-
+.nav-main a:active
+{
+  border-bottom: 2px solid green;
 }
 
 /*--------------------------------------------------------------------------------*/
 /* Content																									 */
 /*--------------------------------------------------------------------------------*/
 
-.content {
-	border: var(--debug-mainBorder);
-	margin: 1px;
+.content
+{
+  margin: 1px;
+
+  border: var(--debug-mainBorder);
 }
 
 
@@ -105,35 +128,49 @@ nav {
 /* Footer																									 */
 /*--------------------------------------------------------------------------------*/
 
-footer {
-	border: var(--debug-mainBorder);
-	margin: 1px;
+footer
+{
+  margin: 1px;
+
+  border: var(--debug-mainBorder);
 }
 
-footer ul {
-	/* top right bottom left*/
-	padding: 50px 35% 50px 35%;
-	background: rgba(0,0,0,0.2);
-	list-style: none;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
+footer ul
+{
+  display: flex;
+  /* top right bottom left*/
+
+  padding: 50px 35% 50px 35%;
+
+  list-style: none;
+
+  background: rgba(0,0,0,.2);
+
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-footer ul li {
-	flex: 1;
-	text-align: center;
-	justify-content: center;
-	border-bottom: 2px solid rgba(0,0,0,0);  /* keep things from moving around on hover / active*/
+footer ul li
+{
+  text-align: center;
+
+  border-bottom: 2px solid rgba(0,0,0,0);  /* keep things from moving around on hover / active*/
+
+  flex: 1;
+  justify-content: center;
 }
 
 footer ul li:hover,
-footer ul li:active {
-	border-bottom: 2px solid green;
+footer ul li:active
+{
+  border-bottom: 2px solid green;
 }
 
-footer p {
-	text-align: center;
-	color: white;
-	padding: 20px;
+footer p
+{
+  padding: 20px;
+
+  text-align: center;
+
+  color: white;
 }

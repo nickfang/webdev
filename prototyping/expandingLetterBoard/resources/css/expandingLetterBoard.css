@@ -1,75 +1,98 @@
-:root {
-	--tile-width: 10vmax;
-	--tile-height: 10vmax;
-	--tile-line-height: 10vmax;
-	--font-size: 8vmax;
+:root
+{
+  --tile-width: 10vmax;
+  --tile-height: 10vmax;
+  --tile-line-height: 10vmax;
+  --font-size: 8vmax;
 }
 
-body {
-	margin: 0;
+body
+{
+  margin: 0;
 }
 
-h1	{
-	margin: 0 auto;
-	margin-top: 20px;
-	text-align: center;
+h1
+{
+  margin: 0 auto;
+  margin-top: 20px;
+
+  text-align: center;
 }
 
-h2 {
-	margin: 5px;
-	text-align: center;
-	font-size: 36px;
+h2
+{
+  font-size: 36px;
+
+  margin: 5px;
+
+  text-align: center;
 }
 
-footer{
-	margin: 0 10%;
-	background: lightyellow;
-	height: 100px;
+footer
+{
+  height: 100px;
+  margin: 0 10%;
+
+  background: lightyellow;
 }
 
-#letter-bank {
-	margin: 0 10%;
-	padding: 10px;
-	margin-top: 20px;
-	background: lightyellow;
-	height: 100px;
+#letter-bank
+{
+  height: 100px;
+  margin: 0 10%;
+  margin-top: 20px;
+  padding: 10px;
+
+  background: lightyellow;
 }
 
-#letters {
-	font-size: 28px;
-	line-height: 28px;
+#letters
+{
+  font-size: 28px;
+  line-height: 28px;
 }
 
-#board {
-	margin: 50px 10%;
-	/*border: 1px solid lightgrey;*/
+#board
+{
+  margin: 50px 10%;
+  /*border: 1px solid lightgrey;*/
 }
 
-.row {
-	display: flex;
-	flex-direction: row;
-	margin: 0 auto;
-	justify-content: center;
+.row
+{
+  display: flex;
+  flex-direction: row;
+
+  margin: 0 auto;
+
+  justify-content: center;
 }
 
-.tile {
-	flex: 1 1 auto;
-	margin: 0;
-	border: 1px dashed lightgrey;
-	text-align: center;
-	vertical-align: middle;
-	max-width: var(--tile-width);
-	height: var(--tile-height);
-	line-height: var(--tile-line-height);
-	font-size: var(--font-size);
+.tile
+{
+  font-size: var(--font-size);
+  line-height: var(--tile-line-height);
+
+  max-width: var(--tile-width);
+  height: var(--tile-height);
+  margin: 0;
+
+  text-align: center;
+  vertical-align: middle;
+
+  border: 1px dashed lightgrey;
+
+  flex: 1 1 auto;
 }
 
-.cursor {
-	background: khaki;
+.cursor
+{
+  background: khaki;
 }
 
-.highlight {
-	background: lightyellow;
+.highlight
+{
+  background: lightyellow;
 }
 
 /*.row-0 .col-1 {
