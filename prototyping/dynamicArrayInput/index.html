@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Figuring out how to make an expandable input for adding elements to an array</title>
+</head>
+<body>
+	<div >
+		<form class="parent">
+			<button id="expanding-input">Submit</button>
+		</form>
+		<button onclick="addElement()">+</button>
+	</div>
+</body>
+<script type="text/javascript">
+	var index = 0;
+
+	function addElement() {
+		var newInput = document.createElement("input");
+		newInput.type = "text";
+		newInput.name = `profile[${index}]`;
+		// TODO: remove this when the page is styled.
+		newInput + "<br>"
+
+		var insertLocation = document.getElementsByClassName("parent")[0];
+		var refElement = document.getElementById("expanding-input");
+		insertLocation.insertBefore(newInput, refElement);
+
+		index++;
+	}
+
+
+</script>
+</html>
