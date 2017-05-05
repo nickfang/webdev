@@ -13,11 +13,12 @@ var numEmailInputs = 0;
 // add two input elements.  One that is the number and one that is the type.
 function addPhoneInput() {
 	var refId = "phoneInput";
-	var phoneInput = document.createElement("input");
 
+	var phoneInput = document.createElement("input");
 	phoneInput.type = "tel";
 	phoneInput.name = `phone[${numPhoneInputs}]`;
 	phoneInput.placeholder = `phone ${numPhoneInputs}`;
+	addInput(phoneInput, refId);
 
 	var phoneTypeInput = document.createElement("select");
 	phoneTypeInput.name = "phoneTypes";
@@ -25,14 +26,10 @@ function addPhoneInput() {
 		var element = document.createElement("option");
 		element.value = itr;
 		element.textContent = itr;
-		console.log(element);
+		phoneTypeInput.append(element);
 	});
-	phoneTypeInput.innerHTML =
-	console.log(phoneTypeInput);
 
-	addInput(phoneInput, refId);
-
-
+	addInput(phoneTypeInput, refId);
 
 	numPhoneInputs++;
 }

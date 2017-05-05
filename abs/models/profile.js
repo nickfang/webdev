@@ -5,8 +5,8 @@ var profileSchema = new mongoose.Schema({
 	lastName: 		String,
 	phonenumbers: [
 		{
-			type: String,
-			phonenumber: String
+			phonenumber: String,
+			type: String
 		}
 	],
 	emails:  		[String],

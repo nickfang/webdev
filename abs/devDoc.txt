@@ -27,7 +27,8 @@ Yellow:
 	import filmography
 
 Red:
-	Store filmography as links to the film
+	Store filmography as another collection of the film.
+	Have a pop up to fill out information for each film.
 
 
 ------------------------------------------------------------------------------------------------------------------------
