@@ -10,14 +10,9 @@ var profileSchema = new mongoose.Schema({
 		}
 	],
 	emails:  		[String],
-	socialMedia:  	String,
+	socialMedia:  	[String], // TODO: create model to store social media information {socialMediaName: "name", socialMediaPlatform: "namePlatform"}
 	headShots:  	[String],
-	filmography:   [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Role"
-		}
-	],
+	filmography:   [String], // TODO: create model to store film information.
 
 	gender: 			String,
 	birthday: 		String,
@@ -27,7 +22,7 @@ var profileSchema = new mongoose.Schema({
 	ethnicities:  	[String],
 	skills:  		[String],
 
-	representation: String,	// may need to make another table for this to include contact information.
+	representation: [String],	// may need to make another table for this to include contact information.
 	unionMembership: [String]  // TODO:array of enums?
 });
 

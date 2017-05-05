@@ -5,28 +5,45 @@ function addInput(newInputHTML, refId) {
 	insertLocation.insertBefore(newInputHTML, refElement);
 }
 
+const phoneTypes = ["home", "cell", "work"];
+
 var numPhoneInputs = 0;
 var numEmailInputs = 0;
 
+// add two input elements.  One that is the number and one that is the type.
 function addPhoneInput() {
-	var newInput = document.createElement("input");
-	newInput.type = "text";
-	newInput.name = `phone[${numPhoneInputs}]`;
-	newInput.placeholder = `phone ${numPhoneInputs}`;
-
 	var refId = "phoneInput";
-	addInput(newInput, refId);
+	var phoneInput = document.createElement("input");
+
+	phoneInput.type = "tel";
+	phoneInput.name = `phone[${numPhoneInputs}]`;
+	phoneInput.placeholder = `phone ${numPhoneInputs}`;
+
+	var phoneTypeInput = document.createElement("select");
+	phoneTypeInput.name = "phoneTypes";
+	phoneTypes.forEach((itr) => {
+		var element = document.createElement("option");
+		element.value = itr;
+		element.textContent = itr;
+		console.log(element);
+	});
+	phoneTypeInput.innerHTML =
+	console.log(phoneTypeInput);
+
+	addInput(phoneInput, refId);
+
+
 
 	numPhoneInputs++;
 }
 
 function addEmailInput() {
+	var refId = "emailInput";
 	var newInput = document.createElement("input");
-	newInput.type = "text";
+	newInput.type = "email";
 	newInput.name = `email[${numEmailInputs}]`;
 	newInput.placeholder = `email ${numEmailInputs}`;
 
-	var refId = "emailInput";
 	addInput(newInput, refId);
 
 	numEmailInputs++;
