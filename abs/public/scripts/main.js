@@ -6,42 +6,67 @@ function addInput(newInputHTML, refId) {
 }
 
 const phoneTypes = ["home", "cell", "work"];
+const ethnicities = ["Caucasian", "African American", "Hispanic", "Asian", "South Asian", "Native American", "Middle Eastern", "Southeast Asian / Pacific Islander", "Ethnically Ambiguous / Mixed Race", "African Descent"];
 
-var numPhoneInputs = 0;
-var numEmailInputs = 0;
+function addEthnicityInput() {
+	var ethnicityInput = document.createElement("select");
+	ethnicityInput.name = "ethnicities[]";
+	ethnicities.forEach((itr) => {
+		var option = document.createElement("option");
+		option.value = itr;
+		option.textContent = itr;
+		ethnicityInput.append(option);
+	});
+	addInput(ethnicityInput, "ethnicitiesInput");
+}
+
+function addSkillInput() {
+	var skillInput = document.createElement("input");
+	skillInput.type = "text";
+	skillInput.name = "skills[]";
+	skillInput.placeholder = "skill"
+	addInput(skillInput, "skillsInput");
+}
+
+function addFilmInput() {
+	var filmInput = document.createElement("input");
+	filmInput.type = "text";
+	filmInput.name = "films[]";
+	filmInput.placeholder = "film"
+	addInput(filmInput, "filmsInput");
+}
 
 // add two input elements.  One that is the number and one that is the type.
 function addPhoneInput() {
-	var refId = "phoneInput";
-
 	var phoneInput = document.createElement("input");
 	phoneInput.type = "tel";
-	phoneInput.name = `phone[${numPhoneInputs}]`;
-	phoneInput.placeholder = `phone ${numPhoneInputs}`;
-	addInput(phoneInput, refId);
+	phoneInput.name = `phones[]`; // ${numPhoneInputs}
+	phoneInput.placeholder = "phone number";
+	addInput(phoneInput, "phonesInput");
 
 	var phoneTypeInput = document.createElement("select");
-	phoneTypeInput.name = "phoneTypes";
+	phoneTypeInput.name = "phoneTypes[]";
 	phoneTypes.forEach((itr) => {
-		var element = document.createElement("option");
-		element.value = itr;
-		element.textContent = itr;
-		phoneTypeInput.append(element);
+		var option = document.createElement("option");
+		option.value = itr;
+		option.textContent = itr;
+		phoneTypeInput.append(option);
 	});
-
-	addInput(phoneTypeInput, refId);
-
-	numPhoneInputs++;
+	addInput(phoneTypeInput, "phonesInput");
 }
 
 function addEmailInput() {
-	var refId = "emailInput";
-	var newInput = document.createElement("input");
-	newInput.type = "email";
-	newInput.name = `email[${numEmailInputs}]`;
-	newInput.placeholder = `email ${numEmailInputs}`;
+	var emailInput = document.createElement("input");
+	emailInput.type = "email";
+	emailInput.name = `emails[]`;
+	emailInput.placeholder = "email";
+	addInput(emailInput, "emailsInput");
+}
 
-	addInput(newInput, refId);
-
-	numEmailInputs++;
+function addHeadshotInput() {
+	var headshotInput = document.createElement("input");
+	headshotInput.type = "text";
+	headshotInput.name = "headshots[]";
+	headshotInput.placeholder = "headshot url";
+	addInput(headshotInput, "headshotsInput");
 }

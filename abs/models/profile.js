@@ -3,17 +3,6 @@ var mongoose = require("mongoose");
 var profileSchema = new mongoose.Schema({
 	firstName: 		String,
 	lastName: 		String,
-	phonenumbers: [
-		{
-			phonenumber: String,
-			type: String
-		}
-	],
-	emails:  		[String],
-	socialMedia:  	[String], // TODO: create model to store social media information {socialMediaName: "name", socialMediaPlatform: "namePlatform"}
-	headShots:  	[String],
-	filmography:   [String], // TODO: create model to store film information.
-
 	gender: 			String,
 	birthday: 		String,
 	city: 			String,
@@ -21,7 +10,18 @@ var profileSchema = new mongoose.Schema({
 	zip:  			String,
 	ethnicities:  	[String],
 	skills:  		[String],
+	filmography:   [String], // TODO: create model to store film information.
+	phonenumbers: [
+		{
+			phonenumber: String,
+			type: String
+		}
+	],
+	emails:  		[String],
+	headShots:  	[String],
 
+
+	socialMedia:  	[String], // TODO: create model to store social media information {socialMediaName: "name", socialMediaPlatform: "namePlatform"}
 	representation: [String],	// may need to make another table for this to include contact information.
 	unionMembership: [String]  // TODO:array of enums?
 });
