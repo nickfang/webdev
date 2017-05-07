@@ -5,12 +5,40 @@ function addInput(newInputHTML, refId) {
 	insertLocation.insertBefore(newInputHTML, refElement);
 }
 
+function addDeleteButton(refId) {
+	var deleteButton = document.createElement("button");
+	deleteButton.class = "remove";
+	// deleteButton.id =
+}
+
+function remove() {
+	console.log("remove clicked");
+	var delClass = this.getAttribute("class");
+	console.log("remove: ", delClass);
+
+	tempElements = document.getElementsByClassName(delClass);
+	console.log(tempElements);
+	tempElements.forEach((itr) => {
+		itr.parentNode.removeChild();
+	})
+	// tempElement.parentNode.removeChild(tempElement);
+	// tempElement = document.getElementById(id + "x");
+	// tempElement.parentNode.removeChild(tempElement);
+}
+
+// this is in main.js since it is used in new.ejs and edit.ejs.
 const phoneTypes = ["home", "cell", "work"];
 const ethnicities = ["Caucasian", "African American", "Hispanic", "Asian", "South Asian", "Native American", "Middle Eastern", "Southeast Asian / Pacific Islander", "Ethnically Ambiguous / Mixed Race", "African Descent"];
 
+// TODO: figure out how to reset these num variables when the page is loaded.  I think this will constantly increment otherwise.
+// TODO: need to figure out when main.js is reloaded.
+var numEthnicities = 0;
+var numSkills = 0;
+
 function addEthnicityInput() {
 	var ethnicityInput = document.createElement("select");
-	ethnicityInput.name = "ethnicities[]";
+	ethnicityInput.name = `ethnicities[${numEthnicities}]`;
+	ethnicityInput.class = `eth${numEthnicities}`;
 	ethnicities.forEach((itr) => {
 		var option = document.createElement("option");
 		option.value = itr;
@@ -18,14 +46,23 @@ function addEthnicityInput() {
 		ethnicityInput.append(option);
 	});
 	addInput(ethnicityInput, "ethnicitiesInput");
+	var deleteButton = document.createElement("button");
+	deleteButton.type = "button";
+	// deleteButton.name = `eth${numEthnicities}`;
+	deleteButton.class = `eth${numEthnicities}`;
+	deleteButton.innerHTML = "x";
+	addInput(deleteButton, "ethnicitiesInput");
+	deleteButton.addEventListener("click", remove);
+	numEthnicities++;
 }
 
 function addSkillInput() {
 	var skillInput = document.createElement("input");
 	skillInput.type = "text";
-	skillInput.name = "skills[]";
+	skillInput.name = `skills[${numSkills}]`;
 	skillInput.placeholder = "skill"
 	addInput(skillInput, "skillsInput");
+	numSkills++;
 }
 
 function addFilmInput() {

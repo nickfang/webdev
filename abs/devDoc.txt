@@ -87,6 +87,7 @@ New Profile Page:
 	You can cancel out of subsequent pages.
 	Have a summary page at the end to ask the user to save on.
 	I want to create an expandable input for fields that are an array of something.  Figured out how to do it in javascript, now I'm not sure where I should store the javascriptfile.  I'm guessing in a public folder and make the expanding code generic for the entire site.  I'll do this first and see if I need to
+	Need to create a delete button for created array elements.  I think I can create a new event listener for each element I create and have it call a function to remove the id.  Should I have a separate function for each type (i.e. skill, phone...) so I don't ever accidentally delete a different profile element by accident.
 
 
 ------------------------------------------------------------------------------------------------------------------------
