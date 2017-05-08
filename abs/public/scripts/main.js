@@ -1,27 +1,29 @@
-function addInput(newInputHTML, refId) {
+function addInput(newInputHTML, idName, refId) {
 	var refElement = document.getElementById(refId);
-	insertLocation = refElement.parentElement;
-	insertLocation.insertBefore(newInputHTML, refElement);
-}
-
-function addDeleteButton(className, refId) {
+	// create div to contain the new form element and the delete button.
+	var container = document.createElement("div");
+	container.id = idName;
+	newInputHTML.forEach((itr) => {
+		container.append(itr);
+	});
+	// add deleteButton and eventlistener for button
 	var deleteButton = document.createElement("button");
 	deleteButton.type = "button";
-	deleteButton.classList.add(className);
+	deleteButton.name = idName;
 	deleteButton.innerHTML = "x";
-	addInput(deleteButton, refId);
-	deleteButton.addEventListener("click", remove);
+	container.append(deleteButton);
+	deleteButton.addEventListener("click", removeCallback);
+	// add container above the button with id refId
+	insertLocation = refElement.parentElement;
+	insertLocation.insertBefore(container, refElement);
 }
 
-function remove() {
-	var delClass = this.getAttribute("class");
-	tempElements = document.getElementsByClassName(delClass);
-	console.log(tempElements);
-	// this work around is because tempElement changes everytime a parentNode.removeChild is called.
-	var len = tempElements.length;
-	for (var i = 0; i < len; i++) {
-		tempElements[0].parentNode.removeChild(tempElements[0]);
-	}
+function removeCallback() {
+	var idToDelete = this.getAttribute("name");
+	console.log(this);
+	console.log(idToDelete);
+	var elementToDelete = document.getElementById(idToDelete);
+	elementToDelete.parentNode.removeChild(elementToDelete);
 }
 
 // this is in main.js since it is used in new.ejs and edit.ejs.
@@ -38,83 +40,85 @@ var numEmails = 0;
 var numHeadshots = 0;
 
 function addEthnicityInput() {
+	var UniqueEthnicityClassName = `eth${numEthnicities}`;
 	var ethnicityInput = document.createElement("select");
 	ethnicityInput.name = `ethnicities[]`;
-	ethnicityInput.classList.add(`eth${numEthnicities}`);
+
 	ethnicities.forEach((itr) => {
 		var option = document.createElement("option");
 		option.value = itr;
 		option.textContent = itr;
+		if (itr === "Asian") {
+			option.selected = true;
+		}
 		ethnicityInput.append(option);
 	});
-	addInput(ethnicityInput, "ethnicitiesInput");
-	addDeleteButton(`eth${numEthnicities}`, "ethnicitiesInput");
+
+	addInput([ethnicityInput], UniqueEthnicityClassName, "ethnicitiesInput");
 	numEthnicities++;
 }
 
 function addSkillInput() {
+	var uniqueSkillClassName = `skills${numSkills}`;
 	var skillInput = document.createElement("input");
 	skillInput.type = "text";
 	skillInput.name = "skills[]";
-	skillInput.classList.add(`skills${numSkills}`);
-	skillInput.placeholder = "skill"
-	addInput(skillInput, "skillsInput");
-	addDeleteButton(`skills${numSkills}`, "skillsInput");
+	skillInput.placeholder = "skill";
+
+	addInput([skillInput], uniqueSkillClassName, "skillsInput");
 	numSkills++;
 }
 
 function addFilmInput() {
+	var uniqueFilmClass = `film${numFilms}`;
 	var filmInput = document.createElement("input");
 	filmInput.type = "text";
 	filmInput.name = "films[]";
-	filmInput.classList.add(`film${numFilms}`);
-	filmInput.placeholder = "film"
-	addInput(filmInput, "filmsInput");
-	addDeleteButton(`film${numFilms}`, "filmsInput");
+	filmInput.placeholder = "film";
+
+	addInput([filmInput], uniqueFilmClass, "filmsInput");
 	numFilms++;
 }
 
 // add two input elements.  One that is the number and one that is the type.
 function addPhoneInput() {
+	var uniquePhoneClassName = `phone${numPhones}`;
 	var phoneInput = document.createElement("input");
 	phoneInput.type = "tel";
 	phoneInput.name = `phones[]`; // ${numPhoneInputs}
-	phoneInput.classList.add(`phone${numPhones}`);
 	phoneInput.placeholder = "phone number";
-	addInput(phoneInput, "phonesInput");
 
 	var phoneTypeInput = document.createElement("select");
 	phoneTypeInput.name = "phoneTypes[]";
-	phoneTypeInput.classList.add(`phone${numPhones}`);
 	phoneTypes.forEach((itr) => {
 		var option = document.createElement("option");
 		option.value = itr;
 		option.textContent = itr;
 		phoneTypeInput.append(option);
 	});
-	addInput(phoneTypeInput, "phonesInput");
-	addDeleteButton(`phone${numPhones}`, "phonesInput")
+
+	addInput([phoneInput, phoneTypeInput], uniquePhoneClassName, "phonesInput");
 	numPhones++;
 }
 
 function addEmailInput() {
+	var uniqueEmailClassName = `email${numEmails}`;
 	var emailInput = document.createElement("input");
 	emailInput.type = "email";
 	emailInput.name = `emails[]`;
-	emailInput.classList.add(`email${numEmails}`);
 	emailInput.placeholder = "email";
-	addInput(emailInput, "emailsInput");
-	addDeleteButton(`email${numEmails}`, "emailsInput");
+
+	addInput([emailInput], uniqueEmailClassName, "emailsInput");
 	numEmails++;
 }
 
 function addHeadshotInput() {
+	var uniqueHeadshotClassName = `headshot${numHeadshots}`;
 	var headshotInput = document.createElement("input");
 	headshotInput.type = "text";
 	headshotInput.name = "headshots[]";
-	headshotInput.classList.add(`headshot${numHeadshots}`);
 	headshotInput.placeholder = "headshot url";
-	addInput(headshotInput, "headshotsInput");
-	addDeleteButton(`headshot${numHeadshots}`, "headshotsInput");
+
+	addInput([headshotInput], uniqueHeadshotClassName, "headshotsInput");
 	numHeadshots++;
 }
