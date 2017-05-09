@@ -2,16 +2,26 @@ function addInput(newInputHTML, idName, refId) {
 	var refElement = document.getElementById(refId);
 	// create div to contain the new form element and the delete button.
 	var container = document.createElement("div");
+	container.classList.add("input-group");
 	container.id = idName;
+	// var label = document.createElement("label");
+	// container.append(label);
 	newInputHTML.forEach((itr) => {
+		if (itr.nodeName.toLowerCase() !== "span") {
+			itr.classList.add("form-control");
+		}
 		container.append(itr);
 	});
 	// add deleteButton and eventlistener for button
+	var spanButton = document.createElement("span");
+	spanButton.classList.add("input-group-btn");
 	var deleteButton = document.createElement("button");
+	deleteButton.classList.add("btn", "btn-default");
 	deleteButton.type = "button";
 	deleteButton.name = idName;
 	deleteButton.innerHTML = "x";
-	container.append(deleteButton);
+	spanButton.append(deleteButton);
+	container.append(spanButton);
 	deleteButton.addEventListener("click", removeCallback);
 	// add container above the button with id refId
 	insertLocation = refElement.parentElement;
@@ -83,13 +93,18 @@ function addFilmInput() {
 // add two input elements.  One that is the number and one that is the type.
 function addPhoneInput() {
 	var uniquePhoneClassName = `phone${numPhones}`;
-	var phoneInput = document.createElement("input");
+
+	var phoneInput = document.createElement("input")
 	phoneInput.type = "tel";
 	phoneInput.name = `phones[]`; // ${numPhoneInputs}
 	phoneInput.placeholder = "phone number";
 
+	var inputGroupDivider = document.createElement("span");
+	inputGroupDivider.classList.add("input-group-btn", "hide-span");
+
 	var phoneTypeInput = document.createElement("select");
 	phoneTypeInput.name = "phoneTypes[]";
+	phoneTypeInput.style.borderLeft = "0px";
 	phoneTypes.forEach((itr) => {
 		var option = document.createElement("option");
 		option.value = itr;
@@ -97,7 +112,7 @@ function addPhoneInput() {
 		phoneTypeInput.append(option);
 	});
 
-	addInput([phoneInput, phoneTypeInput], uniquePhoneClassName, "phonesInput");
+	addInput([phoneInput, inputGroupDivider, phoneTypeInput], uniquePhoneClassName, "phonesInput");
 	numPhones++;
 }
 

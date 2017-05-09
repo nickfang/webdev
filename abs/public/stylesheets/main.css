@@ -2,11 +2,12 @@ h1 {
 	text-align: center;
 }
 
-form {
-	margin: 20px 20%;
+.hide-span {
+	width: 0;
+	margin-left: -1px;
 }
 
-input {
-	display: block;
+.col-centered {
+	float: none;
+	margin: 0 auto;
 }
-
