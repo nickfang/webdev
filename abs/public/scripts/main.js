@@ -1,11 +1,14 @@
-function addInput(newInputHTML, idName, refId) {
+function addInput(newInputHTML, idName, refId, elementLabel) {
 	var refElement = document.getElementById(refId);
+	refElement = refElement.parentElement.parentElement;
 	// create div to contain the new form element and the delete button.
 	var container = document.createElement("div");
 	container.classList.add("input-group");
 	container.id = idName;
-	// var label = document.createElement("label");
-	// container.append(label);
+	var label = document.createElement("span");
+	label.classList.add("input-group-addon");
+	label.innerHTML = elementLabel;
+	container.append(label);
 	newInputHTML.forEach((itr) => {
 		if (itr.nodeName.toLowerCase() !== "span") {
 			itr.classList.add("form-control");
@@ -64,7 +67,7 @@ function addEthnicityInput() {
 		ethnicityInput.append(option);
 	});
 
-	addInput([ethnicityInput], UniqueEthnicityClassName, "ethnicitiesInput");
+	addInput([ethnicityInput], UniqueEthnicityClassName, "ethnicitiesInput", "Ethnicity");
 	numEthnicities++;
 }
 
@@ -75,7 +78,7 @@ function addSkillInput() {
 	skillInput.name = "skills[]";
 	skillInput.placeholder = "skill";
 
-	addInput([skillInput], uniqueSkillClassName, "skillsInput");
+	addInput([skillInput], uniqueSkillClassName, "skillsInput", "Skill");
 	numSkills++;
 }
 
@@ -86,7 +89,7 @@ function addFilmInput() {
 	filmInput.name = "films[]";
 	filmInput.placeholder = "film";
 
-	addInput([filmInput], uniqueFilmClass, "filmsInput");
+	addInput([filmInput], uniqueFilmClass, "filmsInput", "Film");
 	numFilms++;
 }
 
@@ -112,7 +115,7 @@ function addPhoneInput() {
 		phoneTypeInput.append(option);
 	});
 
-	addInput([phoneInput, inputGroupDivider, phoneTypeInput], uniquePhoneClassName, "phonesInput");
+	addInput([phoneInput, inputGroupDivider, phoneTypeInput], uniquePhoneClassName, "phonesInput", "Phone Number");
 	numPhones++;
 }
 
@@ -123,7 +126,7 @@ function addEmailInput() {
 	emailInput.name = `emails[]`;
 	emailInput.placeholder = "email";
 
-	addInput([emailInput], uniqueEmailClassName, "emailsInput");
+	addInput([emailInput], uniqueEmailClassName, "emailsInput", "Email");
 	numEmails++;
 }
 
@@ -134,6 +137,6 @@ function addHeadshotInput() {
 	headshotInput.name = "headshots[]";
 	headshotInput.placeholder = "headshot url";
 
-	addInput([headshotInput], uniqueHeadshotClassName, "headshotsInput");
+	addInput([headshotInput], uniqueHeadshotClassName, "headshotsInput", "Headshot URL");
 	numHeadshots++;
 }
