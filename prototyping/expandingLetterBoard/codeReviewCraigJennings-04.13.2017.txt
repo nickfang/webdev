@@ -1,0 +1,36 @@
+Ok, I looked over your code and it looks pretty good. There's a couple of things that look odd to me, though.
+
+The `gameObj` appears to be something like a `class`, but that's not the common pattern for creating a class in Javascript. Currently, there are two ways to do it.
+
+```
+//es6 syntax
+class GameObject {
+  constructor() {
+  }
+
+  method1() {
+  }
+}
+
+const gameObj = new GameObject();
+gameObj.method1();
+
+//es5 syntax
+function GameObject() {
+  // this is the constructor
+}
+
+GameObject.prototype.method1 = function () {
+}
+
+const gameObj = new GameObject();
+gameObj.method1();
+```
+
+While what you did is valid (and works), it's not necessarily the convention. The reason for that is because using the Object syntax creates a singleton; you can't create two instances of it. With the above code, you can create as many instances of `GameObject` as you want.
+
+The next thing was the `keyHandler`. The code organization seems odd to me. You've got an `if` statement guarding a `switch` statement that doesn't seem necessary, then you have other `if` statements that only check for a single value of `e.keyCode`. I feel like those can all be consolidated into one `switch` statement. The only `if` statement I see useful is the checking for the range of letters allowed. To get the letter of the event, I'd look at using `String.fromCharCode` instead.
+
+I also saw in a comment that you were going to investigate using the `keypress` event instead of `keyup` or `keydown`. `keypress` is an old and busted event that shouldn't be used anymore. I'd look at `input` instead to achieve what you want.
+
+Hope that helps!

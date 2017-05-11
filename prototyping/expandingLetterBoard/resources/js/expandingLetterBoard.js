@@ -1,16 +1,21 @@
 //-------------------------------------------------------------------------------------------------------------------------
 // Game Object
 //-------------------------------------------------------------------------------------------------------------------------
-const gameObj = {
-	board: document.querySelector("#board"),
+class GameObject {
+	constructor() {
+		// not sure if this is right.  seems like a work around for implementing member variables.
+		this.board = document.querySelector("#board");
 
-	xPos: 1,
-	yPos: 1,
-	xLength: 3,
-	yLength: 3,
-	horizHighlight: true,
+		this.xPos = 1;
+		this.yPos = 1;
+		this.xLength = 3;
+		this.yLength = 3;
+		this.horizHighlight = true;
 
-	createBoard: function() {
+		this.createBoard();
+	}
+
+	createBoard() {
 		const row = document.createElement("div");
 		const iDiv = document.createElement("div");
 		for (let x = 0; x < this.xLength; x++) {
@@ -25,9 +30,9 @@ const gameObj = {
 		this.sizeBoardElements();
 		this.drawHighlights(this.getHorizHighlights());
 		this.finishCursorMove();
-	},
+	}
 
-	addLetter: function(letter) {
+	addLetter(letter) {
 		let cursor = this.prepCursorMove();
 		cursor.innerHTML = letter;
 		cursor.classList.add("highlight");
@@ -37,9 +42,9 @@ const gameObj = {
 			++this.yPos > this.yLength - 1 ? this.increaseBoardSizeY() : "";
 		}
 		this.finishCursorMove();
-	},
+	}
 
-	moveCursorLeft: function() {
+	moveCursorLeft() {
 		let cursor = this.prepCursorMove();
 		this.horizHighlight ? cursor.classList.add("highlight") : "";
 		--this.xPos < 0 ? (this.xPos = this.xLength-1) : "";
@@ -48,9 +53,9 @@ const gameObj = {
 			this.drawHighlights(this.getVertHighlights());
 		}
 		this.finishCursorMove();
-	},
+	}
 
-	moveCursorUp: function() {
+	moveCursorUp() {
 		let cursor = this.prepCursorMove();
 		!this.horizHighlight ? cursor.classList.add("highlight") : "";
 		--this.yPos < 0 ? (this.yPos = this.yLength-1) : "";
@@ -59,9 +64,9 @@ const gameObj = {
 			this.drawHighlights(this.getHorizHighlights());
 		}
 		this.finishCursorMove();
-	},
+	}
 
-	moveCursorRight: function() {
+	moveCursorRight() {
 		let cursor = this.prepCursorMove();
 		this.horizHighlight ? cursor.classList.add("highlight") : "";
 		++this.xPos > this.xLength - 1 ? (this.xPos = 0) : "";
@@ -70,9 +75,9 @@ const gameObj = {
 			this.drawHighlights(this.getVertHighlights());
 		}
 		this.finishCursorMove();
-	},
+	}
 
-	moveCursorDown: function() {
+	moveCursorDown() {
 		let cursor = this.prepCursorMove();
 		!this.horizHighlight ? cursor.classList.add("highlight") : "";
 		++this.yPos > this.yLength - 1 ? (this.yPos = 0) : "";
@@ -81,17 +86,17 @@ const gameObj = {
 			this.drawHighlights(this.getHorizHighlights());
 		}
 		this.finishCursorMove();
-	},
+	}
 
-	rotateHighlights: function() {
+	rotateHighlights() {
 		let highlights;
 		this.horizHighlight = !this.horizHighlight;
 		this.removeHighlights();
 		this.horizHighlight ? highlights = this.getHorizHighlights() : highlights = this.getVertHighlights();
 		this.drawHighlights(highlights);
-	},
+	}
 
-	backspace: function() {
+	backspace() {
 		let cursor = this.prepCursorMove();
 		cursor.classList.add("highlight");
 		cursor.innerHTML = "";
@@ -101,9 +106,9 @@ const gameObj = {
 			--this.yPos < 0 ? (this.yPos = this.yLength-1) : "";
 		}
 		this.finishCursorMove();
-	},
+	}
 
-	delete: function() {
+	delete() {
 		let cursor = this.prepCursorMove();
 		cursor.classList.add("highlight");
 		cursor.innerHTML = "";
@@ -113,36 +118,36 @@ const gameObj = {
 			++this.yPos > this.yLength-1 ? (this.yPos = 0) : "";
 		}
 		this.finishCursorMove();
-	},
+	}
 
 	// remove outer rows and columns that are empty.
-	shrinkBoard: function() {
+	shrinkBoard() {
 		console.log("TODO: finish shrinkBoard()")
-	},
+	}
 
 	// internal functions
 
 	// input: none
 	// return: none
 	// This will size each tile so that it is square and will fit on the screen
-	sizeBoardElements: function() {
+	sizeBoardElements() {
 		const tiles = document.querySelectorAll(".tile");
 		// the margin of the board is 10% on each side, so we subtract 20 from 100.
 		// we subtract an additional 4% to account for the border on each tile.  4% gives enough buffer for 25 letters without compressing the width of each tile.
 		// then we divide by whichever side has more tiles.
-		var tileSideLength = (100 - 24) / Math.max(gameObj.xLength, gameObj.yLength);
+		var tileSideLength = (100 - 24) / Math.max(this.xLength, this.yLength);
 		// determine what size to start the tiles at.
 		tileSideLength > 14 ? tileSideLength = 14 : "";
 		document.documentElement.style.setProperty(`--${"tile-width"}`, `${tileSideLength}vmax`);
 		document.documentElement.style.setProperty(`--${"tile-height"}`, `${tileSideLength}vmax`);
 		document.documentElement.style.setProperty(`--${"tile-line-height"}`, `${tileSideLength}vmax`);
 		document.documentElement.style.setProperty(`--${"font-size"}`, `${tileSideLength * .6}vmax`);
-	},
+	}
 
 	// input: none
 	// return: none
 	// If a letter is pressed at the right side of the board, this is used to add a new column on the right side.
-	increaseBoardSizeX: function() {
+	increaseBoardSizeX() {
 		const rows = document.querySelectorAll(".row");
 		rows.forEach( (row, i) => {
 			row.appendChild(row.lastChild.cloneNode());
@@ -153,12 +158,12 @@ const gameObj = {
 		});
 		this.xLength++;
 		this.sizeBoardElements();
-	},
+	}
 
 	// input: none
 	// return: none
 	// If a letter is pressed at the bottom of the board, this is used to add a new row at the bottom.
-	increaseBoardSizeY: function() {
+	increaseBoardSizeY() {
 		const newRow = document.createElement("div");
 		const iDiv = document.createElement("div");
 		for (let x = 0; x < this.xLength; x++) {
@@ -169,37 +174,37 @@ const gameObj = {
 		gameObj.board.appendChild(newRow);
 		this.yLength++;
 		this.sizeBoardElements();
-	},
+	}
 
 	// input: none.  This function uses the globals xPos and yPos
 	// return: div element that the current cursor is on.
-	getCurrentCursorElement: function() {
+	getCurrentCursorElement() {
 		return document.querySelector(`.row-${this.yPos} .col-${this.xPos}`);
-	},
+	}
 
 	// input: none
 	// reutrn: cursor - this is returned so that the calling function can update the highlight or innerHTML accordingly.
-	prepCursorMove: function() {
+	prepCursorMove() {
 		let cursor = this.getCurrentCursorElement();
 		cursor.classList.remove("cursor");
 		// return cursor element so that the calling function can move the cursor and draw highlights
 		return cursor;
-	},
+	}
 
 	//input: none
 	//return: none
 	//This function is run after the xPos and yPos have been updated from a cursor move.
 	//It also assumes that the highlights have been taken care of by the calling function.
-	finishCursorMove: function() {
+	finishCursorMove() {
 		// have to get the cursor element because the cursor has moved
-		cursor = this.getCurrentCursorElement();
+		let cursor = this.getCurrentCursorElement();
 		cursor.classList.remove("highlight");
 		cursor.classList.add("cursor");
-	},
+	}
 
 	// input: highlights - array of tile level divs that will be highlighted
 	// output: none.  This function adds class highlight to all the elemnts in the list highlights
-	drawHighlights: function(highlights) {
+	drawHighlights(highlights) {
 		highlights.forEach( (item) => {
 			// this check is here since it would be inefficient to go through the list to remove the element with class cursor
 			// only to go through the list again to add the highlight class.
@@ -208,29 +213,31 @@ const gameObj = {
 				item.classList.add("highlight");
 			}
 		});
-	},
+	}
 
 	// input: none.  This function uses the globals xPos and yPos
 	// return: array of div elements in the same row as the cursor
-	getHorizHighlights: function() {
+	getHorizHighlights() {
 		return document.querySelectorAll(`.row-${this.yPos} .tile`);
-	},
+	}
 
 	// input: none.  This function uses the globals xPos and yPos
 	// return: array of div elements in the same col as the cursor
-	getVertHighlights: function() {
+	getVertHighlights() {
 		return document.querySelectorAll(`.col-${this.xPos}`);
-	},
+	}
 
 	//input: none.  Queries all the elemnts that has class highlight
 	//output: none.  This function removes the class highlight from all elements found to contain it
-	removeHighlights: function() {
+	removeHighlights() {
 		const highlights = document.querySelectorAll(".highlight");
 		highlights.forEach( (item) => {
 			item.classList.remove("highlight");
 		});
 	}
-};
+
+}
+
 
 //-------------------------------------------------------------------------------------------------------------------------
 // Simulate what the server will provide.
@@ -244,17 +251,20 @@ const gameObj = {
 // - check a filled out board (not sure if I should do this locally) I think I should to keep the server from being spammed.
 //
 
-const simServ = {
-	// {	"a":6,  "b":1, "c":2, "d":4, "e":13, "f":1, "g":5, "h":3, "i":9,
-	// 	"j":1,  "k":1, "l":4, "m":1, "n":7,  "o":6, "p":2, "q":1, "r":7,
-	// 	"s":10, "t":6, "u":3, "v":1, "w":1,  "x":1, "y":1, "z":1, "*":2  }
-	numPlayers: 4,
-	numLetters: 100,
-	letters: ["a", "a", "a", "a", "a", "a", "b", "c", "c", "d", "d", "d", "d", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e",
-				 "e", "f", "g", "g", "g", "g", "g", "h", "h", "h", "i", "i", "i", "i", "i", "i", "i", "i", "i", "j", "k", "l", "l", "l", "l",
-				 "m", "n", "n", "n", "n", "n", "n", "n", "o", "o", "o", "o", "o", "o", "p", "p", "q", "r", "r", "r", "r", "r", "r", "r", "s",
-				 "s", "s", "s", "s", "s", "s", "s", "s", "s", "t", "t", "t", "t", "t", "t", "u", "u", "u", "v", "w", "x", "y", "z", "*", "*"],
-	getLetters: function() {
+class SimulateServer {
+	constructor() {
+		// {	"a":6,  "b":1, "c":2, "d":4, "e":13, "f":1, "g":5, "h":3, "i":9,
+		// 	"j":1,  "k":1, "l":4, "m":1, "n":7,  "o":6, "p":2, "q":1, "r":7,
+		// 	"s":10, "t":6, "u":3, "v":1, "w":1,  "x":1, "y":1, "z":1, "*":2  }
+		this.numPlayers = 4;
+		this.numLetters = 100;
+		this.letters = ["a", "a", "a", "a", "a", "a", "b", "c", "c", "d", "d", "d", "d", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e", "e",
+					 "e", "f", "g", "g", "g", "g", "g", "h", "h", "h", "i", "i", "i", "i", "i", "i", "i", "i", "i", "j", "k", "l", "l", "l", "l",
+					 "m", "n", "n", "n", "n", "n", "n", "n", "o", "o", "o", "o", "o", "o", "p", "p", "q", "r", "r", "r", "r", "r", "r", "r", "s",
+					 "s", "s", "s", "s", "s", "s", "s", "s", "s", "t", "t", "t", "t", "t", "t", "u", "u", "u", "v", "w", "x", "y", "z", "*", "*"];
+	}
+
+	getLetters() {
 		let returnLetters = [];
 		let numLetters = this.getNumLetters();
 		this.shuffleLetters();
@@ -262,8 +272,9 @@ const simServ = {
 			returnLetters.push(this.letters.pop());
 		}
 		return returnLetters;
-	},
-	shuffleLetters: function() {
+	}
+
+	shuffleLetters() {
 		for (let numShuffles = 0; numShuffles < 3; numShuffles++) {
 			for (let x = 0; x < this.letters.length; x ++) {
 				let y = Math.random() * this.numLetters;
@@ -271,8 +282,9 @@ const simServ = {
 				this.letters[x] = this.letters.splice(y, 1, this.letters[x])[0];
 			}
 		}
-	},
-	getNumLetters: function() {
+	}
+
+	getNumLetters() {
 		// make sure we don't try to return more letters than there are.
 		return Math.floor(this.numLetters / this.numPlayers);
 	}
@@ -285,6 +297,7 @@ const simServ = {
 
 function keyHandler(e){
 	// Arrow Keys handler
+	const cursor = gameObj.getCurrentCursorElement();
 	if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
 		switch(e.keyCode) {
 			case 37:	// left button
@@ -316,7 +329,6 @@ function keyHandler(e){
 	if (e.keyCode >= 65 && e.keyCode <= 90) {
 		const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 		const letter = letters[e.keyCode-65];
-		const cursor = gameObj.getCurrentCursorElement();
 
 		// first check if there is already a letter on the tile so we can put it back in the letterBank
 		if (cursor.innerHTML !== "") {
@@ -364,6 +376,8 @@ function keyHandler(e){
 	if (e.keyCode === 13) {
 		validateBoard();
 	}
+
+	// TODO: handle * key
 }
 
 function preventKeyScrolling(e) {
@@ -394,7 +408,8 @@ function displayLetters(arr) {
 window.addEventListener('keyup', keyHandler);
 window.addEventListener('keydown', preventKeyScrolling);
 
-gameObj.createBoard();
+const gameObj = new GameObject();
+const simServ = new SimulateServer();
 
 //-------------------------------------------------------------------------------------------------------------------------
 // Local
@@ -408,6 +423,9 @@ displayLetters(lettersForBank);
 
 function validateBoard() {
 	let boardValid = true;
+	// if the board is valid and there are more letters left, add more letters to the bank
+	// if the board is valid and there are not more letters left, then check with server to see if you won
+	// if the board is not valid, give a warning.
 	if (boardValid) {
 		if (lettersFromServer.length > 1) {
 			// Have to assign letters so we don't lose track of the letters in the bank.
