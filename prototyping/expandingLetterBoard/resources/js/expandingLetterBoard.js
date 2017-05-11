@@ -296,8 +296,9 @@ class SimulateServer {
 //-------------------------------------------------------------------------------------------------------------------------
 
 function keyHandler(e){
-	// Arrow Keys handler
+	// TODO:  This isn't needed for everything, so maybe just put it in the if statements that it's needed in?
 	const cursor = gameObj.getCurrentCursorElement();
+	// Arrow Keys handler
 	if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
 		switch(e.keyCode) {
 			case 37:	// left button
