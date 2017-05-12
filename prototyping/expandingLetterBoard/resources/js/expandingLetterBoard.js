@@ -298,38 +298,13 @@ class SimulateServer {
 function keyHandler(e){
 	// TODO:  This isn't needed for everything, so maybe just put it in the if statements that it's needed in?
 	const cursor = gameObj.getCurrentCursorElement();
-	// Arrow Keys handler
-	if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
-		switch(e.keyCode) {
-			case 37:	// left button
-				gameObj.moveCursorLeft();
-				break;
-			case 39:	// right button
-				gameObj.moveCursorRight();
-				break;
-			case 38:	// up button
-				gameObj.moveCursorUp()
-				break;
-			case 40:	// down butt
-				gameObj.moveCursorDown();
-				break;
-			default:
-				console.log("ALERT!! Got into arrow handler with non arrow key!");
-				break;
-		}
-	}
-
-	// Spacebar handler
-	// spacebar: 32
-	if (e.keyCode === 32) {
-		gameObj.rotateHighlights();
-	}
-
 	// Letter handler
 	// [a..z]: [65..90]
 	if (e.keyCode >= 65 && e.keyCode <= 90) {
-		const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-		const letter = letters[e.keyCode-65];
+		// const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+		// const letter = letters[e.keyCode-65];
+		console.log(String.fromCharCode(e.keyCode));
+		const letter = String.fromCodePoint(e.keyCode).toLowerCase();
 
 		// first check if there is already a letter on the tile so we can put it back in the letterBank
 		if (cursor.innerHTML !== "") {
@@ -348,37 +323,48 @@ function keyHandler(e){
 			gameObj.addLetter(letter);
 		}
 		// if check letter fails, do nothing.
-	}
-
-	//Backspace handler
-	//backspacd: 8
-	if (e.keyCode === 8) {
-		if (cursor.innerHTML !== "") {
-			lettersForBank.push(cursor.innerHTML);
-			displayLetters(lettersForBank);
+	} else {
+		// TODO: handle * key.  Or handle it in the if statement above.
+		switch(e.keyCode) {
+			case 8:  // backspace
+				if (cursor.innerHTML !== "") {
+					lettersForBank.push(cursor.innerHTML);
+					displayLetters(lettersForBank);
+				}
+				gameObj.backspace();
+				break;
+			case 13: // enter key
+				validateBoard();
+				break;
+			case 32: // spacebar
+				gameObj.rotateHighlights();
+				break;
+			case 37:	// left button
+				gameObj.moveCursorLeft();
+				break;
+			case 39:	// right button
+				gameObj.moveCursorRight();
+				break;
+			case 38:	// up button
+				gameObj.moveCursorUp()
+				break;
+			case 40:	// down button
+				gameObj.moveCursorDown();
+				break;
+			case 46: // delete key
+				if (cursor.innerHTML !== "") {
+					lettersForBank.push(cursor.innerHTML);
+					displayLetters(lettersForBank);
+				}
+				gameObj.delete();
+				break;
+			default:
+				// TODO: comment this out when releasing code.  The default should do nothing.
+				// TODO: figure out why I'm getting some weird characters for ;'[]\'
+				console.log("DEBUG: Key not handled " + e.keyCode + ": " + String.fromCharCode(e.keyCode));
+				break;
 		}
-		gameObj.backspace();
 	}
-
-	// TODO: not sure if I want this.
-	// Delete handler
-	// delete: 46
-	if (e.keyCode === 46) {
-		if (cursor.innerHTML !== "") {
-			lettersForBank.push(cursor.innerHTML);
-			displayLetters(lettersForBank);
-		}
-		gameObj.delete();
-	}
-
-	// TODO: implement checking that a board is filled out with real words.
-	// Enter handler
-	// enter: 13
-	if (e.keyCode === 13) {
-		validateBoard();
-	}
-
-	// TODO: handle * key
 }
 
 function preventKeyScrolling(e) {
@@ -400,12 +386,9 @@ function checkLetter(letter) {
 
 function displayLetters(arr) {
 	letterBank.innerHTML = arr.join(" | ");
-
 }
 
-
 // TODO: implement moving the cursor by clicking the mouse.
-// TODO: figure out if I should use keypress event instead.  I think I need to since I'm using the * (56) character
 window.addEventListener('keyup', keyHandler);
 window.addEventListener('keydown', preventKeyScrolling);
 
@@ -438,5 +421,3 @@ function validateBoard() {
 		}
 	}
 }
-
-
