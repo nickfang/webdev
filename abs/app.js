@@ -11,7 +11,7 @@ var app 					= express();
 var indexRoutes = require("./routes/index");
 var profileRoutes = require("./routes/profile");
 
-// mongoose.connect("mongodb://fangns:fangns@fangns-dev-shard-00-00-fhkfn.mongodb.net:27017,fangns-dev-shard-00-01-fhkfn.mongodb.net:27017,fangns-dev-shard-00-02-fhkfn.mongodb.net:27017/fangns-dev?ssl=true&replicaSet=fangns-dev-shard-0&authSource=admin");
+mongoose.connect("mongodb://fangns-dev-shard-00-00-fhkfn.mongodb.net:27017,fangns-dev-shard-00-01-fhkfn.mongodb.net:27017,fangns-dev-shard-00-02-fhkfn.mongodb.net:27017/fangns-dev?ssl=true&replicaSet=fangns-dev-shard-0&authSource=admin"); //"" --ssl-username fangns --password fangns -authenticationDatabase admin
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
