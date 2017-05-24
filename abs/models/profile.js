@@ -1,10 +1,12 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 
-var profileSchema = new mongoose.Schema({
+const profileSchema = new mongoose.Schema({
 	firstName: 		String,
 	lastName: 		String,
 	gender: 			String,
 	birthday: 		String,
+	age: 				Number,
 	city: 			String,
 	state: 			String,
 	zip:  			String,
@@ -25,6 +27,12 @@ var profileSchema = new mongoose.Schema({
 	representation: [String],	// may need to make another table for this to include contact information.
 	unionMembership: [String]  // TODO:array of enums?
 });
+
+profileSchema.pre("save", function(next) {
+	if (!this.isModified("birthday")) {
+		this.age = 38;  // TODO:  figure out how to get the current date and how to subtract the birthday from it
+	}
+})
 
 module.exports = mongoose.model("Profile", profileSchema);
 
