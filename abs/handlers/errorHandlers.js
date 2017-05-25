@@ -7,3 +7,12 @@ exports.catchErrors = (fn) => {
 		return fn(req, res, next).catch(next);
 	};
 };
+
+// Not Found Error Handler
+// used for if a route is not found.  Mark it as 404 and pass it to the next error handler to display
+
+exports.notFound = (req, res, next) => {
+	const err = new Error("Not Found");
+	err.status = 404;
+	next(err);
+};

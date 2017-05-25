@@ -99,7 +99,7 @@ function addPhoneInput() {
 
 	var phoneInput = document.createElement("input")
 	phoneInput.type = "tel";
-	phoneInput.name = `phones[]`; // ${numPhoneInputs}
+	phoneInput.name = `phoneNumbers[]`; // ${numPhoneInputs}
 	phoneInput.placeholder = "phone number";
 
 	var inputGroupDivider = document.createElement("span");

@@ -13,12 +13,8 @@ const profileSchema = new mongoose.Schema({
 	ethnicities:  	[String],
 	skills:  		[String],
 	filmography:   [String], // TODO: create model to store film information.
-	phonenumbers: [
-		{
-			phonenumber: String,
-			type: String
-		}
-	],
+	phoneNumbers:  [String],
+	phoneTypes:    [String],
 	emails:  		[String],
 	headShots:  	[String],
 
@@ -28,11 +24,12 @@ const profileSchema = new mongoose.Schema({
 	unionMembership: [String]  // TODO:array of enums?
 });
 
-profileSchema.pre("save", function(next) {
-	if (!this.isModified("birthday")) {
-		this.age = 38;  // TODO:  figure out how to get the current date and how to subtract the birthday from it
-	}
-})
+// profileSchema.pre("save", function(next) {
+// 	if (!this.isModified("birthday")) {
+// 		this.age = 38;  // TODO:  figure out how to get the current date and how to subtract the birthday from it
+// 	}
+// 	next();
+// })
 
 module.exports = mongoose.model("Profile", profileSchema);
 
