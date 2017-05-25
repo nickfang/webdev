@@ -14,3 +14,11 @@ exports.createProfile = async (req, res) => {
 	await profile.save();
 	res.redirect("/")
 };
+
+exports.editProfile = (req, res) => {
+	res.render("profiles/edit")
+}
+
+exports.updateProfile = (req, res) => {
+	res.redirect("/");
+}
