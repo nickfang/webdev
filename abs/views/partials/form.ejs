@@ -1,0 +1,63 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-centered">
+			<form action="/profiles/new" method="POST">
+				<div class="input-group">
+					<span class="input-group-addon">First Name</span>
+					<input class="form-control" type="text" name="firstName" placeholder="First Name" required>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Last Name</span>
+					<input class="form-control" type="text" name="lastName" placeholder="Last Name">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Gender</span>
+					<input class="form-control" type="text" name="gender" placeholder="Gender">
+					<span class="input-group-addon">Birthday</span>
+					<input class="form-control" type="date" name="birthday" placeholder="Birthday">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">City</span>
+					<input class="form-control" type="text" name="city" placeholder="City">
+					<span class="input-group-addon">State</span>
+					<input class="form-control" type="text" name="state" placeholder="State">
+					<span class="input-group-addon">Zip</span>
+					<input class="form-control" type="text" name="zip" placeholder="zip">
+				</div>
+				<div class="row">
+					<div class="col-lg-1">
+						<button id="ethnicitiesInput" class="form-control" type="button" onclick="addEthnicityInput()">+</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-1">
+				<button id="skillsInput" class="form-control" type="button" onclick="addSkillInput()">+</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-1">
+				<button id="filmsInput" class="form-control" type="button" onclick="addFilmInput()">+</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-1">
+				<button id="phonesInput" class="form-control" type="button" onclick="addPhoneInput()">+</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-1">
+				<button id="emailsInput" class="form-control" type="button" onclick="addEmailInput()">+</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-1">
+				<button id="headshotsInput" class="form-control" type="button" onclick="addHeadshotInput()">+</button>
+					</div>
+				</div>
+				<button>Submit</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="/scripts/main.js"></script>
