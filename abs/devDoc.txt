@@ -75,6 +75,9 @@ views
 ------------------------------------------------------------------------------------------------------------------------
 Development
 ------------------------------------------------------------------------------------------------------------------------
+General
+	implement connect-flash.  Have to implement session for this to work.  Have the display in header.ejs so it is available for all pages.  Add a button so the user can acknowledge the message.  Maybe have a timeout so it automatically disappears after a certain amount of time.
+
 Profile Model
 	Think about setting it up for quick searching.
 	We could store name, conatct information in user, basically all the information that would not be searched for.

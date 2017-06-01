@@ -11,3 +11,20 @@ h1 {
 	float: none;
 	margin: 0 auto;
 }
+
+.flash {
+	width: 100%;
+	text-align: center;
+}
+
+.flash-success {
+	background: lightgreen;
+}
+
+.flash-error {
+	background: lightcoral;
+}
+
+.flash-info {
+	background: lightgoldenrodyellow;
+}

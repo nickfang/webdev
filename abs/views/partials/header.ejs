@@ -18,13 +18,15 @@
          </div>
       </div>
    </nav>
-   <div class="flashes">
-      <% if (locals.flashes) { %>
-         <% var types = Object.keys(locals.flashes); %>
-         <% types.forEach((item) => { %>
-            <% locals.flashes[item].forEach((message) => { %>
-               <p><%= message%></p>
-            <% }); %>
+
+   <% if (locals.flashes) { %>
+      <% var types = Object.keys(locals.flashes); %>
+      <% types.forEach((type) => { %>
+         <% locals.flashes[type].forEach((message) => { %>
+            <div class="flash flash-<%= type %>">
+               <%= message %>
+               <button class="flash-remove" onclick="this.parentElement.remove()">x</button>
+            </div>
          <% }); %>
-      <% }; %>
-   </div>
+      <% }); %>
+   <% }; %>
