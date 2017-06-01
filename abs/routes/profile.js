@@ -8,6 +8,6 @@ router.get("/", profileController.show);
 router.get("/new", profileController.addProfile);
 router.post("/new", catchErrors(profileController.createProfile));
 router.get("/:id/edit", profileController.editProfile);
-router.post("/:id/edit", catchErrors(profileController.updateProfile));
+router.post("/new/:id", catchErrors(profileController.updateProfile));
 
 module.exports = router;

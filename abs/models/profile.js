@@ -16,7 +16,7 @@ const profileSchema = new mongoose.Schema({
 	phoneNumbers:  [String],
 	phoneTypes:    [String],
 	emails:  		[String],
-	headShots:  	[String],
+	headshots:  	[String],
 
 
 	socialMedia:  	[String], // TODO: create model to store social media information {socialMediaName: "name", socialMediaPlatform: "namePlatform"}

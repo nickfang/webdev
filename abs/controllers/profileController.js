@@ -12,6 +12,7 @@ exports.addProfile = (req, res) => {
 exports.createProfile = async (req, res) => {
 	const profile = new Profile(req.body);
 	console.log(req.body);
+	// TODO: remove profile elements that have "" as a value.
 	await profile.save();
 	req.flash("success", "Profile created successfully.")
 	res.redirect("/profiles")
@@ -27,5 +28,5 @@ exports.updateProfile = async (req, res) => {
 		new: true
 	}).exec();
 	req.flash("success", "Successfully updated your profile.");
-	res.redirect("profiles/show");
+	res.render("profiles/show");
 }

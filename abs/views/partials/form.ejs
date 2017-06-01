@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-centered">
-			<form action="/profiles/new" method="POST">
+			<form action="/profiles/new/<%= profile._id || "" %>" method="POST">
 				<div class="input-group">
 					<span class="input-group-addon">First Name</span>
 					<input class="form-control" type="text" name="firstName" placeholder="First Name" Required value=<%= profile.firstName %> >
@@ -31,6 +31,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-1">
+
 				<button id="skillsInput" class="form-control" type="button" onclick="addSkillInput()">+</button>
 					</div>
 				</div>
@@ -61,3 +62,35 @@
 </div>
 
 <script type="text/javascript" src="/scripts/main.js"></script>
+<script>
+	<% if (profile.ethnicities && profile.ethnicities.length > 0) { %>
+		<% profile.ethnicities.forEach((ethnicity) => { %>
+			addEthnicityInput("<%= ethnicity %>");
+		<% }); %>
+	<% }; %>
+	<% if (profile.skills && profile.skills.length > 0) { %>
+	   <% profile.skills.forEach((skill) => { %>
+	   	addSkillInput("<%= skill %>");
+	   <% }); %>
+	<% }; %>
+	<% if (profile.filmography && profile.filmography.length > 0) { %>
+	   <% profile.filmography.forEach((film) => { %>
+	   	addFilmInput("<%= film %>");
+	   <% }); %>
+	<% }; %>
+	<% if (profile.phoneNumbers && profile.phoneTypes && profile.phoneNumbers.length > 0 && profile.phoneTypes.length > 0) { %>
+	   <% for (var i = 0; i < profile.phoneNumbers.length; i++) { %>
+	   	addPhoneInput("<%= profile.phoneNumbers[i] %>", "<%= profile.phoneTypes[i] %>");
+	  	<% }; %>
+	<% }; %>
+	<% if (profile.emails && profile.emails.length > 0) { %>
+	  	<% profile.emails.forEach((email) => { %>
+	  		addEmailInput("<%= email %>");
+		<% }); %>
+	<% }; %>
+	<% if (profile.headshots && profile.headshots.length > 0) { %>
+	  	<% profile.headshots.forEach((headshot) => { %>
+	  		addHeadshotInput("<%= headshot %>");
+	  	<% }); %>
+	<% }; %>
+</script>
