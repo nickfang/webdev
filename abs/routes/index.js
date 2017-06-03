@@ -14,10 +14,8 @@ router.post("/register", (req, res) => {
 	var newUser = new User({username: req.body.username});
 	User.register(newUser, req.body.password, (err, user) => {
 		if (err) {
-			// TODO: add this back in when I have flash working.
-			// return res.render("register", {"error": err.message});
-			console.log("Error registering.");
-			return;
+			req.flash("error", err.message);
+			return res.render("register");
 		}
 		res.redirect("/");
 	});

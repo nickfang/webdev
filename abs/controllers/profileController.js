@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Profile = mongoose.model("Profile");
 
 exports.show = (req, res) => {
+
 	res.render("profiles/show", { title: ""});
 };
 
@@ -11,11 +12,10 @@ exports.addProfile = (req, res) => {
 
 exports.createProfile = async (req, res) => {
 	const profile = new Profile(req.body);
-	console.log(req.body);
 	// TODO: remove profile elements that have "" as a value.
 	await profile.save();
 	req.flash("success", "Profile created successfully.")
-	res.redirect("/profiles")
+	res.render("profiles/show")
 };
 
 exports.editProfile = async (req, res) => {

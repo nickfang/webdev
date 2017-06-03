@@ -151,3 +151,42 @@ function addHeadshotInput(value = "") {
 	addInput([headshotInput], uniqueHeadshotClassName, "headshotsInput", "Headshot URL");
 	numHeadshots++;
 }
+
+// When a profile is edited, the data is passed in and needs to populate the form.
+// The code below fills out the form elements that can be expanded, so all the current elements are displayed
+profile = window.bootstrapData;
+if (profile.ethnicities && profile.ethnicities.length > 0) {
+	profile.ethnicities.forEach((ethnicity) => {
+		addEthnicityInput(ethnicity);
+	});
+}
+
+if (profile.skills && profile.skills.length > 0) {
+	profile.skills.forEach((skill) => {
+		addSkillInput(skill);
+	});
+}
+
+if (profile.filmography && profile.filmography.length > 0) {
+	profile.filmography.forEach((film) => {
+		addFilmInput(film);
+	});
+}
+
+if (profile.phoneNumbers && profile.phoneTypes && profile.phoneNumbers.length > 0 && profile.phoneTypes.length > 0) {
+	for (var i = 0; i < profile.phoneNumbers.length; i++) {
+		addPhoneInput(profile.phoneNumbers[i], phoneTypes[i]);
+	}
+}
+
+if (profile.emails && profile.emails.length > 0) {
+	profile.emails.forEach((email) => {
+		addEmailInput(email);
+	});
+}
+
+if (profile.headshots && profile.headshots.length > 0) {
+	profile.headshots.forEach((headshot) => {
+		addHeadshotInput(headshot);
+	});
+}

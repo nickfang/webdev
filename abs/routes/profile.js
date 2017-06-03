@@ -6,8 +6,8 @@ const {catchErrors} = require("../handlers/errorHandlers");
 
 router.get("/", profileController.show);
 router.get("/new", profileController.addProfile);
-router.post("/new", catchErrors(profileController.createProfile));
+router.post("/", catchErrors(profileController.createProfile));
 router.get("/:id/edit", profileController.editProfile);
-router.post("/new/:id", catchErrors(profileController.updateProfile));
+router.post("/:id", catchErrors(profileController.updateProfile));
 
 module.exports = router;
