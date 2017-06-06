@@ -5,7 +5,7 @@ const profileSchema = new mongoose.Schema({
 	firstName: 		String,
 	lastName: 		String,
 	gender: 			String,
-	birthday: 		String,
+	birthday: 		Date,
 	age: 				Number,
 	city: 			String,
 	state: 			String,
