@@ -9,12 +9,14 @@ const profileSchema = new mongoose.Schema({
 	age: 				Number,
 	city: 			String,
 	state: 			String,
-	zip:  			String,
+	zip:  			Number,
 	ethnicities:  	[String],
 	skills:  		[String],
 	filmography:   [String], // TODO: create model to store film information.
-	phoneNumbers:  [String],
-	phoneTypes:    [String],
+	phoneNumbers:  [{
+		phoneNumber: String,
+		phoneType: String
+	}],
 	emails:  		[String],
 	headshots:  	[String],
 

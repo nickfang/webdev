@@ -173,10 +173,10 @@ if (profile.filmography && profile.filmography.length > 0) {
 	});
 }
 
-if (profile.phoneNumbers && profile.phoneTypes && profile.phoneNumbers.length > 0 && profile.phoneTypes.length > 0) {
-	for (var i = 0; i < profile.phoneNumbers.length; i++) {
-		addPhoneInput(profile.phoneNumbers[i], phoneTypes[i]);
-	}
+if (profile.phoneNumbers && profile.phoneNumbers.length > 0) {
+	profile.phoneNumbers.forEach((itr) => {
+			addPhoneInput(itr.phoneNumber, itr.phoneType);
+	});
 }
 
 if (profile.emails && profile.emails.length > 0) {

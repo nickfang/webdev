@@ -22,7 +22,7 @@
 					<span class="input-group-addon">State</span>
 					<input class="form-control" type="text" name="state" placeholder="State" value=<%- profile.state %>>
 					<span class="input-group-addon">Zip</span>
-					<input class="form-control" type="text" name="zip" placeholder="zip" value=<%- profile.zip %>>
+					<input class="form-control" type="text" pattern="[0-9]{5}" title="Zip code."name="zip" placeholder="zip" value=<%- profile.zip %>>
 				</div>
 				<div class="row">
 					<div class="col-lg-1">
@@ -68,7 +68,6 @@
 		skills: <%- JSON.stringify(profile.skills) %>,
 		filmography: <%- JSON.stringify(profile.filmography) %>,
 		phoneNumbers: <%- JSON.stringify(profile.phoneNumbers) %>,
-		phoneTypes: <%- JSON.stringify(profile.phoneTypes) %>,
 		emails: <%- JSON.stringify(profile.emails) %>,
 		headshots: <%- JSON.stringify(profile.headshots) %>
 	};

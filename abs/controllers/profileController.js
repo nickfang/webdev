@@ -11,6 +11,13 @@ exports.addProfile = (req, res) => {
 };
 
 exports.createProfile = async (req, res) => {
+	var phoneNumbers = [];
+	for (var x = 0; x < req.body.phoneNumbers.length; x++) {
+		phoneNumbers[x] = {"phoneNumber": req.body.phoneNumbers[x], "phoneType": req.body.phoneTypes[x]};
+	}
+	req.body.phoneNumbers = phoneNumbers;
+	delete req.body.phoneTypes;
+	console.log(req.body);
 	const profile = new Profile(req.body);
 	// TODO: remove profile elements that have "" as a value.
 	await profile.save();
