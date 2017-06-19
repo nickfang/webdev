@@ -25,6 +25,7 @@ Green:
 Yellow:
 	Search by location.
 	import filmography
+	The ability to send out a casting call (send text message/email to all actors found)
 
 Red:
 	Store filmography as another collection of the film.
