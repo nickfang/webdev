@@ -6,12 +6,13 @@ const bodyParser 			= require("body-parser");  		// https://github.com/expressjs
 const mongoose				= require("mongoose");
 const methodOverride 	= require("method-override");		// https://github.com/expressjs/method-override
 const flash 				= require("connect-flash");
-const User					= require("./models/user");
-const profile				= require("./models/profile");
+const expressValidator  = require("express-validator");
+const passport				= require("passport");
 const indexRoutes 		= require("./routes/index");
 const profileRoutes 		= require("./routes/profile");
 const helpers				= require("./helpers");
 const errorHandlers 		= require("./handlers/errorHandlers");
+require("./handlers/passport");
 
 var app 					= express();
 
@@ -24,6 +25,8 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(expressValidator());
+
 app.use(methodOverride("_method"));
 
 // necessary for flash messages
@@ -33,6 +36,9 @@ app.use(session({
 	resave: false,
 	saveUninitialized: false,
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(flash());
 

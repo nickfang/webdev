@@ -79,11 +79,19 @@ Development
 General
 	implement connect-flash.  Have to implement session for this to work.  Have the display in header.ejs so it is available for all pages.  Add a button so the user can acknowledge the message.  Maybe have a timeout so it automatically disappears after a certain amount of time.
 
-Profile Model
-	Think about setting it up for quick searching.
-	We could store name, conatct information in user, basically all the information that would not be searched for.
-	Store birthday and age and have a script that would calculate age during low traffic time so that it is not calculated during searchs
-	Learn about Indexes
+Models
+	User Model
+		Store information for allowing people to log in.  Both caster and castee.
+		- email - unique identifier for logging in
+		- ?username - might be useful for a forum or blogging and commenting.
+		- passport-local-mongoose - process password
+	Profile Model
+		Information that casters will search for
+		Think about setting it up for quick searching.
+		We could store name, conatct information in user, basically all the information that would not be searched for.
+		Store birthday and age and have a script that would calculate age during low traffic time so that it is not calculated during searchs
+		Learn about Indexes
+
 
 
 New Profile Page:
@@ -100,15 +108,8 @@ New Profile Page:
 ------------------------------------------------------------------------------------------------------------------------
 Node Modules
 ------------------------------------------------------------------------------------------------------------------------
+See package.json
 
-Express
-ejs
-Passport or JSON Web Tokens?
-mongoose
-passport-local-mongoose
-passport-local
-method-override
-bodyParser
 
 ------------------------------------------------------------------------------------------------------------------------
 Notes
