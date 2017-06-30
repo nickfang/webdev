@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prod": "node ./start.js",
-    "watch": "nodemon ./start.js --ignore public/",
+    "watch": "nodemon ./start.js --ignore public/ -V",
     "start": "npm run watch"
   },
   "author": "Nicholas Fang",
@@ -14,6 +14,8 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^1.3.2",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
     "es6-promisify": "^5.0.0",

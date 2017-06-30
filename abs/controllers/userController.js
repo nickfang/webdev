@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const User = mongoose.model("ABSUser");
+const User = mongoose.model("User");
 const promisify = require("es6-promisify");
 
 exports.loginForm = (req, res) => {
@@ -10,6 +10,31 @@ exports.registerForm = (req, res) => {
 	res.render("register", { title: "register" });
 };
 
+exports.account = (req, res) => {
+	res.render("account", { title: "Edit Your Account" });
+};
+
+exports.updateAccount = async (req, res) => {
+	const updates = {
+		username: req.body.username,
+		email: req.body.email
+	};
+	const user = await user.findOneAndUpdate(
+		{ _id: req.user._id },
+		{ $set: updates },
+		{ new: true, runValidators: true, context: "query" }
+	);
+	res.json(user);
+};
+
+// Debugging
+
+exports.printPassportInfo = (req, res, next) => {
+	console.log(req._passport);
+	console.log(req.user);
+};
+
+// Middleware
 exports.validateRegister = (req, res, next) => {
 	req.sanitizeBody("username");
 	req.checkBody("username", "You must supply a username!").notEmpty();
@@ -30,11 +55,11 @@ exports.validateRegister = (req, res, next) => {
 		return;
 	}
 	next();
-}
+};
 
 exports.register = async (req, res, next) => {
 	const user = new User({ email: req.body.email, username: req.body.username });
 	const registerWithPromise = promisify(User.register, User);
 	await registerWithPromise(user, req.body.password);
 	next();
-}
+};
