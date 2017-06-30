@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
 		unique: true,
 		lowercase: true,
 		trim: true,
-		// validate: [validator.isAlphanumeric, "You can only use letters or numbers for the username."],
+		validate: [validator.isAlphanumeric, "You can only use letters or numbers for the username."],
 		required: "Please provide a username."
 	},
 	email: {
@@ -19,7 +19,7 @@ var userSchema = new mongoose.Schema({
 		unique: true,
 		lowercase: true,
 		trim: true,
-		// validate: [validator.isEmail, "Invalid email address."],
+		validate: [validator.isEmail, "Invalid email address."],
 		required: "Please provide an email address."
 	}
 });

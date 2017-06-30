@@ -27,12 +27,6 @@ exports.updateAccount = async (req, res) => {
 	res.json(user);
 };
 
-// Debugging
-
-exports.printPassportInfo = (req, res, next) => {
-	console.log(req._passport);
-	console.log(req.user);
-};
 
 // Middleware
 exports.validateRegister = (req, res, next) => {
@@ -61,5 +55,13 @@ exports.register = async (req, res, next) => {
 	const user = new User({ email: req.body.email, username: req.body.username });
 	const registerWithPromise = promisify(User.register, User);
 	await registerWithPromise(user, req.body.password);
+	next();
+};
+
+
+// Debugging
+exports.printPassportInfo = (req, res, next) => {
+	console.log(req._passport);
+	console.log(req.user);
 	next();
 };
