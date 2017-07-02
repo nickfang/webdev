@@ -63,13 +63,15 @@
 
 
 <script>
-	window.bootstrapData = {
-		ethnicities: <%- JSON.stringify(profile.ethnicities) %>,
-		skills: <%- JSON.stringify(profile.skills) %>,
-		filmography: <%- JSON.stringify(profile.filmography) %>,
-		phoneNumbers: <%- JSON.stringify(profile.phoneNumbers) %>,
-		emails: <%- JSON.stringify(profile.emails) %>,
-		headshots: <%- JSON.stringify(profile.headshots) %>
-	};
+	if (profile) {
+		window.bootstrapData = {
+			ethnicities: <%- JSON.stringify(profile.ethnicities) %>,
+			skills: <%- JSON.stringify(profile.skills) %>,
+			filmography: <%- JSON.stringify(profile.filmography) %>,
+			phoneNumbers: <%- JSON.stringify(profile.phoneNumbers) %>,
+			emails: <%- JSON.stringify(profile.emails) %>,
+			headshots: <%- JSON.stringify(profile.headshots) %>
+		};
+	}
 </script>
 <script type="text/javascript" src="/scripts/main.js"></script>

@@ -3,7 +3,7 @@ var router  = express.Router();
 const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
 
-const {catchErrors} = require("../handlers/errorHandlers");
+const {catchErrors, catchDuplicate} = require("../handlers/errorHandlers");
 
 router.get("/", (req, res) => {
 	res.render("landing");
@@ -21,6 +21,7 @@ router.post("/account", catchErrors(userController.updateAccount));
 router.get("/register", userController.registerForm);
 router.post("/register",
 	userController.validateRegister,
+	userController.checkDuplicate,
 	userController.register,
 	authController.login
 );
