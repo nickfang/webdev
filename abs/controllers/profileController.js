@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const Profile = mongoose.model("Profile");
 
-exports.show = (req, res) => {
+// TODO: move this stuff to userProfile and update profiles => profile since each user only has one profile.
 
+exports.show = (req, res) => {
 	res.render("profiles/show", { title: ""});
 };
 
-exports.addProfile = (req, res) => {
-	res.render("profiles/new", {title: "New Profile"});
-};
+// exports.addProfile = (req, res) => {
+// 	res.render("profiles/new", {title: "New Profile"});
+// };
 
 exports.createProfile = async (req, res) => {
 	var phoneNumbers = [];
@@ -19,16 +20,16 @@ exports.createProfile = async (req, res) => {
 	delete req.body.phoneTypes;
 	console.log(req.body);
 	const profile = new Profile(req.body);
-	// TODO: remove profile elements that have "" as a value.
+	// TODO: remove profile elements that have "" as a value.  Asisgn it undefined
 	await profile.save();
 	req.flash("success", "Profile created successfully.")
 	res.render("profiles/show")
 };
 
-exports.editProfile = async (req, res) => {
-	const profile = await Profile.findOne({ _id: req.params.id })
-	res.render("profiles/edit", {title: "Update Your Profile", profile})
-}
+// exports.editProfile = async (req, res) => {
+// 	const profile = await Profile.findOne({ _id: req.params.id })
+// 	res.render("profiles/edit", {title: "Update Your Profile", profile})
+// }
 
 exports.updateProfile = async (req, res) => {
 	const profile = await Profile.findOneAndUpdate({ _id: req.params.id }, req.body, {

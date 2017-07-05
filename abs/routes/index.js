@@ -14,6 +14,12 @@ router.get("/login", userController.loginForm);
 router.post("/login", authController.login);
 router.get("/logout", authController.logout);
 
+router.get("/profile/new", authController.isLoggedIn, userController.addProfileForm);
+router.post("/profile", catchErrors(userController.createProfile));
+router.get("/profile/:id/edit", catchErrors(userController.editProfileForm));
+router.post("/profile/:id", catchErrors(userController.updateProfile));
+router.get("/profile/:id/show", catchErrors(userController.showProfile));
+
 router.get("/account", authController.isLoggedIn, userController.accountForm);
 router.post("/account", catchErrors(userController.updateAccount));
 

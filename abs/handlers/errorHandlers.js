@@ -10,6 +10,8 @@ exports.catchErrors = (fn) => {
 	};
 };
 
+// TODO: Get this working.
+// An attempt at trying to catch the duplicate error that is coming back from mongoose.
 exports.catchDuplicate = (fn) => {
 	return function(req, res, next) {
 		var error;

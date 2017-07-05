@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const User = mongoose.model("User");
 const promisify = require("es6-promisify");
+const User = mongoose.model("User");
+const Profile = mongoose.model("Profile");
 
 mongoose.Promise = global.Promise;
 
@@ -16,8 +17,7 @@ exports.accountForm = (req, res) => {
 	res.render("account", { title: "Edit Your Account" });
 };
 
-exports.forgotAccountForm = async (req, res) => {
-	// res.send("TODO: Forgot Account Form");
+exports.forgotAccountForm = (req, res) => {
 	res.render("forgot", { title: "Password Reset" });
 };
 
@@ -32,6 +32,19 @@ exports.updateAccount = async (req, res) => {
 		{ new: true, runValidators: true, context: "query" }
 	);
 	res.json(user);
+};
+
+exports.showProfile = async (req, res) => {
+	const profile = await Profile.findOne({ _id: req.params.id });
+};
+
+exports.addProfileForm = (req, res) => {
+	res.render("newProfile", { title: "New Profile" });
+};
+
+exports.editProfileForm = async (req, res) => {
+	const profile = await Profile.findOne({ _id: req.params.id });
+	res.render("editProfile", { title: "Update Your Profile", profile })
 };
 
 

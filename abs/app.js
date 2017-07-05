@@ -10,7 +10,7 @@ const expressValidator  = require("express-validator");
 const passport				= require("passport");
 const promisify			= require("es6-promisify");
 const indexRoutes 		= require("./routes/index");
-const profileRoutes 		= require("./routes/profile");
+// const profileRoutes 		= require("./routes/profile");
 const helpers				= require("./helpers");
 const errorHandlers 		= require("./handlers/errorHandlers");
 require("./handlers/passport");
@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/", indexRoutes);
-app.use("/profiles", profileRoutes);
+// app.use("/profiles", profileRoutes);
 
 app.use(errorHandlers.notFound);
 
