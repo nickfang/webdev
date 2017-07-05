@@ -5,15 +5,20 @@ const promisify = require("es6-promisify");
 mongoose.Promise = global.Promise;
 
 exports.loginForm = (req, res) => {
-	res.render("login", { title: "login" })
+	res.render("login", { title: "login" });
 };
 
 exports.registerForm = (req, res) => {
 	res.render("register", { title: "register" });
 };
 
-exports.account = (req, res) => {
+exports.accountForm = (req, res) => {
 	res.render("account", { title: "Edit Your Account" });
+};
+
+exports.forgotAccountForm = async (req, res) => {
+	// res.send("TODO: Forgot Account Form");
+	res.render("forgot", { title: "Password Reset" });
 };
 
 exports.updateAccount = async (req, res) => {
@@ -76,7 +81,7 @@ exports.register = async (req, res, next) => {
 };
 
 
-// Debugging
+// Debugging middleware
 exports.printPassportInfo = (req, res, next) => {
 	console.log(req._passport);
 	console.log(req.user);

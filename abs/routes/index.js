@@ -14,9 +14,8 @@ router.get("/login", userController.loginForm);
 router.post("/login", authController.login);
 router.get("/logout", authController.logout);
 
-router.get("/account", userController.account);
+router.get("/account", authController.isLoggedIn, userController.accountForm);
 router.post("/account", catchErrors(userController.updateAccount));
-
 
 router.get("/register", userController.registerForm);
 router.post("/register",
@@ -26,9 +25,12 @@ router.post("/register",
 	authController.login
 );
 
-// router.post("/login", (req, res) => {
-// 	// TODO: create middle ware for passport or look into JSON Web Token
-// 	res.redirect("/");
-// });
+router.get("/account/forgot", userController.forgotAccountForm);
+router.post("/account/forgot", catchErrors(authController.reset));
+router.get("/account/reset/:token", catchErrors(authController.reset));
+router.post("/account/reset/:token",
+	authController.confirmedPassword,
+	catchErrors(authController.update)
+);
 
 module.exports = router;
