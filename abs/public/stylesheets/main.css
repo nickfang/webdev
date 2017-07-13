@@ -2,6 +2,10 @@ h1 {
 	text-align: center;
 }
 
+label {
+	text-align: right;
+}
+
 .hide-span {
 	width: 0;
 	margin-left: -1px;
