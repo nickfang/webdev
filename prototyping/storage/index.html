@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Storage</title>
+</head>
+<body>
+	<div>
+		<form id="addMovieForm">
+			<label>Title</label>
+			<input type="text" name="title" placeholder="Movie Title">
+			<label>Genre</label>
+			<input type="text" name="genre" placeholder="Comma separated list of movie genres.">
+			<label>Year</label>
+			<input type="number" name="year" placeholder="####">
+			<label>Actors</label>
+			<input type="text" name="actors" placeholder="Comma separated list of actors.">
+			<label>Rating</label>
+			<input type="number" name="rating" placeholder="[1-5]">
+		</form>
+		<button onclick="saveMovie()">Add Movie</button>
+</body>
+<script type="text/javascript">
+
+	function saveMovie() {
+		var movies = localStorage.getItem("movies");
+		console.log(movies);
+		if (!movies) {
+			movies = [];
+		}
+		console.log(movies);
+		var movie = {}
+		// console.log("in saveMovie()")
+		var formData = document.getElementById("addMovieForm");
+		console.log(formData);
+		for (var x = 0; x < formData.length; x++) {
+			// console.log(formData[x].name, formData.elements[x].value);
+			movie[formData[x].name] = formData.elements[x].value;
+		}
+		console.log(movie);
+		movies.push(movie);
+		localStorage.setItem("movies", [{"test": "test"}]);
+		console.log(movies);
+	}
+</script>
+</html>
