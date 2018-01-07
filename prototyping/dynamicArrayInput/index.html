@@ -25,6 +25,9 @@
 		var refElement = document.getElementById("expanding-input");
 		insertLocation.insertBefore(newInput, refElement);
 
+		inputs = document.getElementsByTagName('input')
+		inputs[inputs.length - 1].focus();
+
 		index++;
 	}
 

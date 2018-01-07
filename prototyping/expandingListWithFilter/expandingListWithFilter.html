@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototyping a list than can be filtered.</title>
+</head>
+<body>
+	<div>
+		<h2>Checkbox List</h2>
+		<input id="searchBar">
+		<form class="checkboxForm">
+			<div class="checkboxItem"><input type="checkbox" id="checkboxAll" class="checkbox"><label for="checkboxAll">All</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox1" class="checkbox"><label for="checkbox1">checkbox1</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox2" class="checkbox"><label for="checkbox2">checkbox2</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox3" class="checkbox"><label for="checkbox3">checkbox3</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox4" class="checkbox"><label for="checkbox4">checkbox4</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox5" class="checkbox"><label for="checkbox5">checkbox5</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox6" class="checkbox"><label for="checkbox6">checkbox6</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox7" class="checkbox"><label for="checkbox7">checkbox7</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox8" class="checkbox"><label for="checkbox8">checkbox8</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox9" class="checkbox"><label for="checkbox9">checkbox9</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox10" class="checkbox"><label for="checkbox10">checkbox10</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox11" class="checkbox"><label for="checkbox11">checkbox11</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox12" class="checkbox"><label for="checkbox12">checkbox12</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox13" class="checkbox"><label for="checkbox13">checkbox13</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox14" class="checkbox"><label for="checkbox14">checkbox14</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox15" class="checkbox"><label for="checkbox15">checkbox15</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox16" class="checkbox"><label for="checkbox16">checkbox16</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox17" class="checkbox"><label for="checkbox17">checkbox17</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox18" class="checkbox"><label for="checkbox18">checkbox18</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox19" class="checkbox"><label for="checkbox19">checkbox19</label></div>
+			<div class="checkboxItem"><input type="checkbox" id="checkbox20" class="checkbox"><label for="checkbox20">checkbox20</label></div>
+		</form>
+		<a href="#" onclick="clickedMoreOrLess()" id="moreButton">Show More...</a>
+		<a href="#" onclick="clickedMoreOrLess()" id="lessButton">Show less...</a>
+	</div>
+</body>
+	<script type="text/javascript">
+	const checkListElements = {
+		input: document.getElementById('searchBar'),
+		all: document.getElementById('checkboxAll'),
+		checkboxes: document.getElementsByClassName('checkboxItem'),
+		moreButton: document.getElementById('moreButton'),
+		lessButton: document.getElementById('lessButton'),
+	};
+	const initialElementsToShow = 4;
+	let expanded = 0;
+	showUnfilteredList();
+
+	function clickedMoreOrLess() {
+		expanded ^= 1;
+		showUnfilteredList();
+	}
+
+	function showUnfilteredList() {
+		// for (let x = initialElementsToShow; x < checkListElements.checkboxes.length; x += 1) {
+		// 	expanded ? checkListElements.checkboxes[x].style.display = '' : checkListElements.checkboxes[x].style.display = 'none';
+		// }
+		showList( (element, index) => { return expanded ? true : index < 4;})
+
+		checkboxAll.style.display = '';
+		if (expanded) {
+			checkListElements.moreButton.style.display = 'none';
+			checkListElements.lessButton.style.display = '';
+		} else {
+			checkListElements.moreButton.style.display = '';
+			checkListElements.lessButton.style.display = 'none';
+		}
+	}
+
+
+	// showList shows or hides elements in the list depending on the listFilter.  ListFilter has access to element or index.
+	function showList(listFilter) {
+		var nonMatchingElements = [];
+		Array.from(checkListElements.checkboxes).filter((element, index) => {
+			if (listFilter(element, index)) {
+				return true;
+			}
+			nonMatchingElements.push(element);
+			return false;
+		}).forEach((element) => { element.style.display = ''; });
+		nonMatchingElements.forEach( (element) => { element.style.display = 'none' });
+	}
+
+	function showFilteredList(e) {
+		const value = e.target.value;
+		// var nonMatchingElements = [];
+		// Array.from(checkListElements.checkboxes).filter( (item) => {
+		// 	if (item.lastChild.innerHTML.toLowerCase().includes(value.toLowerCase())) {
+		// 		return true;
+		// 	}
+		// 	nonMatchingElements.push(item);
+		// 	return false;
+		// }).forEach( (element) => { element.style.display = ''; });
+		// nonMatchingElements.forEach( (element) => { element.style.display = 'none' });
+		// hide the All checkbox and the more/less links if there's something in the search bar.
+		if (value.length > 0) {
+			showList( (element) => { return element.lastChild.innerHTML.toLowerCase().includes(value.toLowerCase()); });
+			checkListElements.all.style.display = 'none';
+			checkListElements.moreButton.style.display = 'none';
+			checkListElements.lessButton.style.display = 'none';
+		} else {
+			showUnfilteredList();
+		}
+	}
+
+	checkListElements.input.addEventListener('keyup', showFilteredList);
+
+	</script>
+</html>

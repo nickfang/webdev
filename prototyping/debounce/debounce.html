@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Prototyping debounce functions.</title>
+</head>
+<body>
+	<div>
+		<input type="button" name="clickCount" onclick=debounceClick()>
+		<label id="clickCountLabel" for="clickCount"></label>
+	</div>
+</body>
+<script>
+	let numClicks = 0;
+	debounceBuffer = null;
+	clickLabel = document.getElementById('clickCountLabel');
+
+	updateOutput = (clicks) => {
+		clickLabel.innerHTML = clicks;
+	}
+
+	debounceClick = () => {
+		clearTimeout(debounceBuffer);
+		numClicks += 1;
+		debounceBuffer = setTimeout(() => updateOutput(numClicks), 1000);
+	}
+
+	debounce = (func, timeout) => {
+		setTimeout(func, timeout);
+	}
+
+</script>
+</html>
