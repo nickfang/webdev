@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+// two ways to do closures.
+
+// this version allows you to have pass in parameters.
+var Add = (startValue = 0, increment = 1) => {
+   var counter = startValue;
+   return () => {return console.log(counter += increment);}
+};
+
+// you'll have to assign it to another variable.  If you just run Add, it will reset the counter and increment every time.
+add = Add(0, 5);
+
+// This way you don't have to assign Add2 to another value.  It's basically doing add = Add() the first time you call the Add2 function.
+var Add2 = (() => {
+   var count = 0;
+   return () => { return console.log(count += 1);}
+})();
+
+
+</script>
+
+<button type="button" onclick="add()">add</button>
+<button type="button" onclick="Add2()">add2</button>
+
+</body>
+</html>
