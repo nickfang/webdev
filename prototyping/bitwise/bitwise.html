@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Playing with bitwise operators.</title>
+</head>
+<body>
+   <div>
+      <input type="button" name="clickCount" onclick=debounceClick()>
+      <label id="clickCountLabel" for="clickCount"></label>
+   </div>
+</body>
+<script>
+const MASK = 3;  // 0011
+
+console.log(1 & MASK);
+console.log(2 & MASK);
+console.log(-1 & MASK);
+console.log(-2 & MASK);
+console.log(-3 & MASK);
+console.log(-100 & MASK);
+
+</script>
+</html>
