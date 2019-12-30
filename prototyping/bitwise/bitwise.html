@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-   <title>Playing with bitwise operators.</title>
-</head>
-<body>
-   <div>
-      <input type="button" name="clickCount" onclick=debounceClick()>
-      <label id="clickCountLabel" for="clickCount"></label>
-   </div>
-</body>
-<script>
-const MASK = 3;  // 0011
+  <head>
+    <title>Playing with bitwise operators.</title>
+  </head>
+  <body>
+    <div></div>
+  </body>
+  <script>
+    const MASK = 3; // 0011
 
-console.log(1 & MASK);
-console.log(2 & MASK);
-console.log(-1 & MASK);
-console.log(-2 & MASK);
-console.log(-3 & MASK);
-console.log(-100 & MASK);
+    console.log(1 & MASK);
+    console.log(2 & MASK);
+    console.log(-1 & MASK);
+    console.log(-2 & MASK);
+    console.log(-3 & MASK);
+    console.log(-100 & MASK);
 
-</script>
+    const flipBit = bit => {
+      return (bit + 1) & 1;
+    };
+
+    console.log("|-- Flipping bit --|");
+    let bit = 0;
+    console.log(bit);
+    bit = flipBit(bit);
+    console.log(bit);
+    bit = flipBit(bit);
+    console.log(bit);
+    bit = flipBit(bit);
+    console.log(bit);
+  </script>
 </html>
